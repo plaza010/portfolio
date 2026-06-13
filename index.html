@@ -33,11 +33,17 @@
     .gallery1 .item-img {
       border-radius: 0 !important;
     }
+    /* Fade-in on scroll */
+    .fade-in-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
-
-  
-  
-  
 </head>
 <body>
   
@@ -72,7 +78,7 @@
     </nav>
 </section>
 
-<section data-bs-version="5.1" class="video1 cid-vmaY3ytTlK" id="video1-0">
+<section data-bs-version="5.1" class="video1 cid-vmaY3ytTlK fade-in-scroll" id="video1-0">
     
     
     <div class="align-center container-fluid">
@@ -116,7 +122,7 @@
     <div class="container-fluid">
         
         <div class="row mt-4">
-            <div class="item features-image col-12 col-md-6 col-lg-6">
+            <div class="item features-image col-12 col-md-6 col-lg-6 fade-in-scroll">
                 <div class="item-wrapper">
                     <div class="item-img">
                         <a href="page1.html"><img src="assets/images/cb137cc1-328f-4846-b086-c799b3440589-carw-4x3x1920-1920x1440.png" alt="Mobirise Website Builder"></a>
@@ -125,7 +131,7 @@
                     
                 </div>
             </div>
-            <div class="item features-image col-12 col-md-6 col-lg-6">
+            <div class="item features-image col-12 col-md-6 col-lg-6 fade-in-scroll">
                 <div class="item-wrapper">
                     <div class="item-img">
                         <a href="page2.html"><img src="assets/images/04925209-05ef-4569-96bb-8d75432a8845-carw-4x3x1920-1080x810.png" alt="Mobirise Website Builder"></a>
@@ -133,7 +139,7 @@
                     
                     
                 </div>
-            </div><div class="item features-image col-12 col-md-6 col-lg-6">
+            </div><div class="item features-image col-12 col-md-6 col-lg-6 fade-in-scroll">
                 <div class="item-wrapper">
                     <div class="item-img">
                         <a href="page4.html"><img src="assets/images/b803ba56-5846-464f-bff9-cd21b65ca379-carw-4x3x1920-1080x810.png" alt="Mobirise Website Builder" data-slide-to="2" data-bs-slide-to="3"></a>
@@ -143,7 +149,7 @@
                 </div>
             </div>
             
-            <div class="item features-image col-12 col-md-6 col-lg-6">
+            <div class="item features-image col-12 col-md-6 col-lg-6 fade-in-scroll">
                 <div class="item-wrapper">
                     <div class="item-img">
                         <img src="assets/images/44536132-0c05-418e-b906-9f94d1b205dc-carw-4x3x1920-1080x810.png" alt="Mobirise Website Builder" title="" data-bs-slide-to="6" data-slide-to="5">
@@ -154,7 +160,26 @@
             </div>
         </div>
     </div>
-</section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/playervimeo/vimeo_player.js"></script>  <script src="assets/theme/js/script.js"></script>  
+</section>
+
+<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/playervimeo/vimeo_player.js"></script>  <script src="assets/theme/js/script.js"></script>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in-scroll').forEach((el, i) => {
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+</script>
   
   
 </body>
