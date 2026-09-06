@@ -100,8 +100,8 @@
 
     .fade-in-scroll {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(10px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
     }
     .fade-in-scroll.visible {
       opacity: 1;
@@ -558,17 +558,16 @@
   
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.classList.add('visible');
-        }, entry.target.dataset.delay || 0);
+        }, i * 25);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in-scroll').forEach((el, i) => {
-    el.dataset.delay = i * 100;
+  }, { threshold: 0.01 });
+  document.querySelectorAll('.fade-in-scroll').forEach((el) => {
     observer.observe(el);
   });
 </script>
