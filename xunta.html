@@ -21,21 +21,80 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap"></noscript>
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=uIOD7s"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=uIOD7s" type="text/css">
   <style>
-    body, section, .gallery1, .video1, .video3, .menu, .testimonials1, .contacts2 {
-      background-color: #000 !important;
+    /* ============ Premium light layout ============ */
+    body, section {
+      background-color: #ffffff !important;
     }
+    .menu, .menu nav {
+      background-color: #0d0d0d !important;
+    }
+    .bg-tint {
+      background-color: #f7f6f3 !important;
+    }
+
+    /* The theme's default text is light (built for the site's dark pages) —
+       force dark, readable text everywhere */
+    .mbr-fonts-style, .mbr-section-title, .mbr-section-subtitle, .mbr-text,
+    h1, h2, h3, h4, h5, h6, p {
+      color: #1a1a1a !important;
+    }
+
+    .gallery1 .mbr-section-subtitle,
+    .video1 .mbr-section-subtitle,
+    .video1 .mbr-section-title,
+    .video3 .mbr-section-subtitle {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      font-size: 0.9rem !important;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      margin-bottom: 1.8rem !important;
+    }
+
+    .gallery1, .video1, .video3, .testimonials1, .contacts2 {
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
+    }
+
     .gallery1 .item-img img,
-    .gallery1 .item-img a img {
-      border-radius: 0 !important;
-    }
+    .gallery1 .item-img a img,
     .gallery1 .item-wrapper,
-    .gallery1 .item-img {
+    .gallery1 .item-img,
+    .video1 .box {
       border-radius: 0 !important;
     }
+    .gallery1 .item-img { overflow: hidden; }
+    .gallery1 .item-img img {
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+    }
+    .gallery1 .item-wrapper:hover .item-img img {
+      transform: scale(1.045);
+    }
+    .video1 .box, .video1 .mbr-media {
+      box-shadow: 0 25px 60px rgba(0,0,0,0.10);
+    }
+
+    .contacts2 .mbr-iconfont {
+      color: #1a1a1a !important;
+    }
+    .contacts2 .card {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    }
+    .testimonials1 .image-wrapper img {
+      box-shadow: 0 25px 60px rgba(0,0,0,0.10);
+    }
+
+    .menu .nav-link {
+      color: #ffffff !important;
+    }
+    .menu .nav-link:hover {
+      color: #cfcfcf !important;
+    }
+
     .fade-in-scroll {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(10px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
     }
     .fade-in-scroll.visible {
       opacity: 1;
@@ -67,7 +126,7 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-white display-4" href="https://mobiri.se">Get in touch!</a>
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-white display-4" href="https://mobiri.se">¡Contáctame!</a>
                     </li></ul>
                 
                 
@@ -80,17 +139,16 @@
 
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.classList.add('visible');
-        }, entry.target.dataset.delay || 0);
+        }, i * 25);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in-scroll').forEach((el, i) => {
-    el.dataset.delay = i * 100;
+  }, { threshold: 0.01 });
+  document.querySelectorAll('.fade-in-scroll').forEach((el) => {
     observer.observe(el);
   });
 </script>
