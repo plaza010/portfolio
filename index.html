@@ -163,6 +163,21 @@
     .menu .nav-link:hover {
       color: #cfcfcf !important;
     }
+    /* Mobile dropdown panel: force a solid dark backdrop so links don't
+       disappear (white text on white) when the collapsed menu opens */
+    @media (max-width: 991px) {
+      .menu .navbar-collapse.show,
+      .menu .navbar-collapse.collapsing {
+        background-color: rgba(10, 10, 10, 0.97) !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .menu .navbar-collapse.show .navbar-nav,
+      .menu .navbar-collapse.show .nav-item,
+      .menu .navbar-collapse.show .nav-link {
+        background-color: transparent !important;
+      }
+    }
 
     .fade-in-scroll {
       opacity: 0;
