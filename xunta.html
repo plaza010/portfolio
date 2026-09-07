@@ -29,6 +29,7 @@
       background-color: rgba(10, 10, 10, 0.55) !important;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      transition: background-color 0.6s cubic-bezier(.4,0,.2,1);
     }
     .menu {
       position: fixed !important;
@@ -40,20 +41,23 @@
     }
     .menu nav {
       position: relative;
-      transition: padding 0.3s ease;
+      transition: padding 0.6s cubic-bezier(.4,0,.2,1), background-color 0.6s cubic-bezier(.4,0,.2,1);
     }
     .navbar-brand img {
-      transition: height 0.3s ease;
+      transition: height 0.6s cubic-bezier(.4,0,.2,1);
+    }
+    .menu.scrolled, .menu.scrolled nav {
+      background-color: rgba(10, 10, 10, 0.28) !important;
     }
     .menu.scrolled nav {
-      padding-top: 0.3rem !important;
-      padding-bottom: 0.3rem !important;
+      padding-top: 0.1rem !important;
+      padding-bottom: 0.1rem !important;
     }
     .menu.scrolled .navbar-brand img {
-      height: 2rem !important;
+      height: 1.5rem !important;
     }
     .menu.scrolled .nav-link {
-      font-size: 0.85rem !important;
+      font-size: 0.78rem !important;
     }
     .bg-tint {
       background-color: #f7f6f3 !important;
