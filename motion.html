@@ -45,6 +45,20 @@
     }
     .menu nav {
       position: relative;
+      transition: padding 0.3s ease;
+    }
+    .navbar-brand img {
+      transition: height 0.3s ease;
+    }
+    .menu.scrolled nav {
+      padding-top: 0.3rem !important;
+      padding-bottom: 0.3rem !important;
+    }
+    .menu.scrolled .navbar-brand img {
+      height: 2rem !important;
+    }
+    .menu.scrolled .nav-link {
+      font-size: 0.85rem !important;
     }
     .bg-tint {
       background-color: #f7f6f3 !important;
@@ -92,9 +106,17 @@
       box-shadow: 0 25px 60px rgba(0,0,0,0.10);
     }
 
-    .gallery1 .item-wrapper,
+    .gallery1 .item-wrapper {
+      background-color: transparent !important;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+      transition: box-shadow 0.3s ease;
+    }
+    .gallery1 .item-wrapper:hover {
+      box-shadow: 0 25px 55px rgba(0,0,0,0.13);
+    }
     .gallery1 .item-content {
       background-color: #f7f6f3 !important;
+      padding: 1.2rem 1.4rem !important;
     }
     .gallery1 .item-title, .gallery1 .item-title strong {
       color: #1a1a1a !important;
@@ -254,6 +276,19 @@
   document.querySelectorAll('.fade-in-scroll').forEach((el) => {
     observer.observe(el);
   });
+
+  const siteMenu = document.querySelector('.menu');
+  const onMenuScroll = () => {
+    if (window.scrollY > 40) {
+      siteMenu.classList.add('scrolled');
+    } else {
+      siteMenu.classList.remove('scrolled');
+    }
+  };
+  if (siteMenu) {
+    window.addEventListener('scroll', onMenuScroll, { passive: true });
+    onMenuScroll();
+  }
 </script>
 </body>
 </html>
