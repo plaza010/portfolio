@@ -81,7 +81,7 @@
       animation: entra 1.6s ease both;
     }
 
-    /* Cabecera fija con el vídeo (ligeramente a la izquierda, 90% opacidad) y lema en el centro */
+    /* Cabecera fija con el logo */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -92,7 +92,9 @@
       z-index: 2;
     }
     
-    .card .logo-animado {
+    /* Estilos comunes para el logo (tanto vídeo como imagen) */
+    .card .logo-animado,
+    .card .logo-estatico {
       width: min(44vw, 560px);
       height: auto;
       display: block;
@@ -100,6 +102,10 @@
       margin-left: -1.2rem;
       opacity: 0.90;
     }
+
+    /* Por defecto en escritorio: se muestra el vídeo, se oculta la imagen estática */
+    .logo-estatico { display: none; }
+    .logo-animado { display: block; }
 
     .lema {
       font-style: italic; font-weight: 300;
@@ -186,11 +192,14 @@
     .item-3 { top: 230vh; left: 5vw; }
     .item-4 { top: 310vh; right: 5vw; }
 
+    /* En dispositivos móviles: se oculta el vídeo y se muestra la imagen estática PNG */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
-      .card .logo-animado { width: 72vw; margin-left: -0.6rem; }
+      
+      .logo-animado { display: none !important; }
+      .logo-estatico { display: block !important; width: 72vw; margin-left: -0.6rem; }
       
       .gallery-item { width: 230px; }
       .item-1 { left: 3vw; top: 70vh; }
@@ -223,14 +232,17 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera fija con vídeo MOV (para iOS) y WebM (para escritorio/Android) -->
+      <!-- Cabecera fija con vídeo para ordenador e imagen PNG estática para móvil -->
       <div class="card-header">
         <h1 style="all:unset">
+          <!-- Vídeo para escritorio -->
           <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
             <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
             <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
             Tu navegador no soporta video HTML5.
           </video>
+          <!-- Imagen estática para móvil -->
+          <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
         </h1>
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
@@ -269,12 +281,12 @@
 
   <script>
     const video = document.getElementById('logoVideo');
-    
-    // Al terminar la animación, congela el vídeo exactamente en el último frame
-    video.addEventListener('ended', () => {
-      video.pause();
-      video.currentTime = video.duration;
-    });
+    if (video) {
+      video.addEventListener('ended', () => {
+        video.pause();
+        video.currentTime = video.duration;
+      });
+    }
   </script>
 </body>
 </html>
