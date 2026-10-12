@@ -81,7 +81,7 @@
       animation: entra 1.6s ease both;
     }
 
-    /* Cabecera fija con el logo y el lema siempre en el centro */
+    /* Cabecera fija con el vídeo y el lema siempre en el centro */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -191,52 +191,3 @@
   <header class="nav">
     <a href="./" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
     <nav aria-label="Principal">
-      <ul>
-        <li><a href="#tienda">Tienda</a></li>
-        <li><a href="#festival" aria-current="page">El festival</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="card">
-      
-      <!-- Logo y lema fijos en el centro -->
-      <div class="card-header">
-        <h1 style="all:unset">
-          <img class="logo-animado" id="logoImg" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
-        </h1>
-        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
-      </div>
-
-      <!-- Área con scroll interno dentro de la tarjeta -->
-      <div class="card-scroll-area">
-        <div class="scroll-inner-content">
-          <div class="test-item box-1">Foto / Texto Grande 1</div>
-          <div class="test-item box-2">Foto / Texto Grande 2</div>
-          <div class="test-item box-3">Foto / Texto Grande 3</div>
-          <div class="test-item box-4">Foto / Texto Grande 4</div>
-        </div>
-      </div>
-
-    </section>
-  </main>
-
-  <div class="hojas" aria-hidden="true"></div>
-
-  <script>
-    // Tiempo exacto que dura tu nueva animación rápida en milisegundos (2 segundos = 2000ms)
-    const duracionAnimacionMs = 2000;
-
-    setTimeout(() => {
-      const logoImg = document.getElementById('logoImg');
-      if (logoImg) {
-        // Al cumplirse los 2 segundos, se cambia al archivo estático para que frene de golpe y no repita bucle
-        logoImg.src = 'assets/bosquejo-logo-estatico.png';
-      }
-    }, duracionAnimacionMs);
-  </script>
-</body>
-</html>
