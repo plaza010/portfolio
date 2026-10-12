@@ -206,8 +206,7 @@
       <!-- Logo y lema fijos en el centro -->
       <div class="card-header">
         <h1 style="all:unset">
-          <!-- Al exportar el GIF configurado para reproducirse 1 sola vez (loop: 0 / no repetir), se detendrá solo en el último frame -->
-          <img class="logo-animado" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
+          <img class="logo-animado" id="logoImg" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
         </h1>
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
@@ -226,5 +225,18 @@
   </main>
 
   <div class="hojas" aria-hidden="true"></div>
+
+  <script>
+    // Tiempo exacto que dura tu nueva animación rápida en milisegundos (2 segundos = 2000ms)
+    const duracionAnimacionMs = 2000;
+
+    setTimeout(() => {
+      const logoImg = document.getElementById('logoImg');
+      if (logoImg) {
+        // Al cumplirse los 2 segundos, se cambia al archivo estático para que frene de golpe y no repita bucle
+        logoImg.src = 'assets/bosquejo-logo-estatico.png';
+      }
+    }, duracionAnimacionMs);
+  </script>
 </body>
 </html>
