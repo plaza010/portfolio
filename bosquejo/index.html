@@ -108,7 +108,7 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Área con scroll interno dentro de la tarjeta crema */
+    /* Área con scroll interno dentro de la tarjeta */
     .card-scroll-area {
       position: relative;
       width: 100%;
@@ -203,10 +203,11 @@
   <main>
     <section class="card">
       
-      <!-- Logo y lema fijos en el centro con el GIF reproduciéndose al abrir -->
+      <!-- Logo y lema fijos en el centro -->
       <div class="card-header">
         <h1 style="all:unset">
-          <img class="logo-animado" src="assets/bosquejo-logo-escribiendo.gif?v=2" alt="Bosquejo">
+          <!-- Usamos una imagen que cambiará automáticamente a estática al terminar de escribirse -->
+          <img class="logo-animado" id="logoImg" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
         </h1>
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
@@ -227,9 +228,16 @@
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
-    /* Nota: Si deseas que el GIF vaya exactamente al doble de velocidad, 
-       lo ideal es exportarlo desde tu editor al doble de velocidad (la mitad de duración de fotogramas). 
-       Si no, el navegador reproducirá el GIF estándar de manera automática al cargar la web. */
+    // Calcula la duración aproximada del gif en milisegundos (ajusta este valor según lo rápido que quieras que dure la animación completa)
+    const duracionAnimacionMs = 1200; // 1.2 segundos (cámbialo si tu gif rápido dura un poco más o menos)
+
+    setTimeout(() => {
+      const logoImg = document.getElementById('logoImg');
+      if (logoImg) {
+        // Reemplaza el gif animado por la imagen PNG estática del logo completo
+        logoImg.src = 'assets/bosquejo-logo-estatico.png';
+      }
+    }, duracionAnimacionMs);
   </script>
 </body>
 </html>
