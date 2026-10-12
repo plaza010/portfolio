@@ -97,8 +97,8 @@
       height: auto;
       display: block;
       margin-top: -4vh;
-      margin-left: -1.2rem; /* Ligero ajuste a la izquierda para centrado óptico */
-      opacity: 0.90; /* Quita un 10% de opacidad para que no distraiga tanto */
+      margin-left: -1.2rem;
+      opacity: 0.90;
     }
 
     .lema {
@@ -120,11 +120,12 @@
       z-index: 5;
       padding-bottom: 12rem;
 
-      /* Barra de desplazamiento elegante con color #EDE0CC y sin fondo blanco */
+      /* Configuración nativa para Firefox */
       scrollbar-width: thin;
-      scrollbar-color: #EDE0CC transparent;
+      scrollbar-color: #C5B59D transparent;
     }
 
+    /* Configuración estándar para Webkit (Chrome, Safari, Edge) sin fondo blanco ni flechas */
     .card-scroll-area::-webkit-scrollbar {
       width: 8px;
     }
@@ -134,12 +135,12 @@
     }
 
     .card-scroll-area::-webkit-scrollbar-thumb {
-      background: #EDE0CC;
+      background: #C5B59D; /* Tono ligeramente más contrastado sobre el #EBDFCC para que se distinga bien */
       border-radius: 10px;
     }
 
     .card-scroll-area::-webkit-scrollbar-thumb:hover {
-      background: #d8cbba;
+      background: #b09e86;
     }
 
     /* Contenedor interno largo para permitir el desplazamiento */
@@ -165,7 +166,7 @@
       height: auto;
       aspect-ratio: 4 / 5;
       object-fit: cover;
-      border-radius: 0px; /* Sin bordes redondos, totalmente cuadradas */
+      border-radius: 0px; /* Cero bordes redondos, totalmente cuadradas */
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
       display: block;
     }
@@ -181,7 +182,7 @@
       opacity: 0.85;
     }
 
-    /* Posiciones de las imágenes (empezando más abajo y separadas hacia los lados) */
+    /* Posiciones de las imágenes */
     .item-1 { top: 65vh; left: 4vw; }
     .item-2 { top: 135vh; right: 4vw; }
     .item-3 { top: 210vh; left: 5vw; }
