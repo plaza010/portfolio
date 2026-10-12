@@ -24,7 +24,8 @@
       font-weight: 300;
       color: var(--corteza);
       background: var(--corteza);
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     /* Fondo fotográfico desenfocado */
@@ -54,9 +55,18 @@
     .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
     .nav a:focus-visible { outline: 1px solid var(--rojo); outline-offset: 2px; }
 
-    /* Tarjeta central */
+    /* Contenedor con altura extra para permitir scroll */
+    .scroll-container {
+      position: relative;
+      width: 100%;
+      height: 200vh;
+      z-index: 5;
+    }
+
+    /* Tarjeta central fija (sticky) */
     main {
-      position: fixed; inset: 0; z-index: 5;
+      position: sticky; top: 0;
+      height: 100vh;
       display: grid; place-items: center;
       padding: 5.5rem 9% 6%;
     }
@@ -69,7 +79,14 @@
       overflow: hidden;
       animation: entra 1.6s ease both;
     }
-    .card img.logo { width: min(44vw, 560px); height: auto; display: block; margin-top: -4vh; }
+    
+    .card .logo-animado {
+      width: min(44vw, 560px);
+      height: auto;
+      display: block;
+      margin-top: -4vh;
+    }
+
     .lema {
       font-style: italic; font-weight: 300;
       font-size: clamp(1.1rem, 1.5vw, 1.5rem);
@@ -79,21 +96,20 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Sombra de hojas: GIF animado en la capa frontal (no bloquea clics).
-       Con fondo blanco + multiply, el blanco desaparece y solo se ve la sombra. */
+    /* Sombra de hojas: GIF animado */
     .hojas {
       position: fixed; inset: 0; z-index: 30;
       pointer-events: none;
       background: url('assets/hojas.gif') center/cover no-repeat;
       mix-blend-mode: multiply;
-      opacity: .6; /* ajusta la intensidad de la sombra */
+      opacity: .6;
     }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
-      .card img.logo { width: 72vw; }
+      .card .logo-animado { width: 72vw; }
     }
     @media (prefers-reduced-motion: reduce) {
       .card { animation: none; }
@@ -116,14 +132,40 @@
     </nav>
   </header>
 
-  <main>
-    <section class="card">
-      <h1 style="all:unset"><img class="logo" src="assets/bosquejo-logo.png" alt="Bosquejo"></h1>
-      <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
-    </section>
-  </main>
+  <div class="scroll-container">
+    <main>
+      <section class="card">
+        <h1 style="all:unset">
+          <video class="logo-animado" id="logoVideo" muted playsinline preload="auto">
+            <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
+            <source src="assets/bosquejo-logo-escribiendo.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+          </video>
+        </h1>
+        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+      </section>
+    </main>
+  </div>
 
   <!-- Textura: sombra de hojas (GIF) -->
   <div class="hojas" aria-hidden="true"></div>
+
+  <script>
+    const video = document.getElementById('logoVideo');
+    
+    video.addEventListener('loadedmetadata', function() {
+      video.pause();
+    });
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollFraction = scrollTop / maxScroll;
+
+      if (video.duration) {
+        video.currentTime = scrollFraction * video.duration;
+      }
+    });
+  </script>
 </body>
 </html>
