@@ -7,7 +7,7 @@
   <meta name="description" content="Antes de existir, todo es bosquejo. Festival de moda que celebra el proceso de crear.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --verde: #899C75;
@@ -30,6 +30,7 @@
       background: var(--corteza);
     }
 
+    /* Fondo fotográfico desenfocado fijo */
     .bg {
       position: fixed; inset: -4%;
       background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
@@ -37,6 +38,7 @@
       z-index: 0;
     }
 
+    /* Menú superior fijo */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 40;
       display: flex; align-items: center; justify-content: space-between;
@@ -55,6 +57,7 @@
     .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
     .nav a:focus-visible { outline: 1px solid var(--rojo); outline-offset: 2px; }
 
+    /* Sombra de hojas: GIF animado fijo en primer plano */
     .hojas {
       position: fixed; inset: 0; z-index: 30;
       pointer-events: none;
@@ -63,6 +66,7 @@
       opacity: .6;
     }
 
+    /* Tarjeta central fija en pantalla */
     main {
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
@@ -77,6 +81,7 @@
       animation: entra 1.6s ease both;
     }
 
+    /* Cabecera fija con el vídeo (ligeramente a la izquierda, 90% opacidad) y lema en el centro */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -92,12 +97,11 @@
       height: auto;
       display: block;
       margin-top: -4vh;
-      transform: translateX(-12px);
-      opacity: 0.9;
+      margin-left: -1.2rem; /* Ligero ajuste a la izquierda para centrado óptico */
+      opacity: 0.90; /* Quita un 10% de opacidad para que no distraiga tanto */
     }
 
     .lema {
-      font-family: 'Roboto', sans-serif;
       font-style: italic; font-weight: 300;
       font-size: clamp(1.1rem, 1.5vw, 1.5rem);
       color: #1a1a1a;
@@ -106,6 +110,7 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
       width: 100%;
@@ -113,7 +118,9 @@
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 5;
-      padding-bottom: 10rem;
+      padding-bottom: 12rem;
+
+      /* Barra de desplazamiento elegante con color #EDE0CC y sin fondo blanco */
       scrollbar-width: thin;
       scrollbar-color: #EDE0CC transparent;
     }
@@ -135,56 +142,62 @@
       background: #d8cbba;
     }
 
+    /* Contenedor interno largo para permitir el desplazamiento */
     .scroll-inner-content {
       position: relative;
       width: 100%;
-      height: 350vh;
+      height: 340vh;
       pointer-events: none;
     }
 
-    .photo-container {
+    /* Elementos de imagen con pie de foto en tipografía Roboto */
+    .gallery-item {
       position: absolute;
-      pointer-events: auto;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      background: transparent;
+      pointer-events: auto;
+      width: 360px;
     }
 
-    .photo-container img {
+    .gallery-item img {
       width: 100%;
       height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 0px; /* Sin bordes redondos, totalmente cuadradas */
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
       display: block;
-      border-radius: 0px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
 
-    .photo-caption {
-      font-family: 'Roboto', sans-serif;
+    .gallery-caption {
+      font-family: 'Roboto', system-ui, sans-serif;
       font-weight: 300;
       font-style: italic;
       font-size: 0.95rem;
       color: var(--corteza);
       margin-top: 0.6rem;
       text-align: left;
-      width: 100%;
       opacity: 0.85;
     }
 
-    .box-1 { top: 75vh; left: 4vw; width: 340px; }
-    .box-2 { top: 145vh; right: 4vw; width: 360px; }
-    .box-3 { top: 220vh; left: 5vw; width: 380px; }
-    .box-4 { top: 295vh; right: 5vw; width: 350px; }
+    /* Posiciones de las imágenes (empezando más abajo y separadas hacia los lados) */
+    .item-1 { top: 65vh; left: 4vw; }
+    .item-2 { top: 135vh; right: 4vw; }
+    .item-3 { top: 210vh; left: 5vw; }
+    .item-4 { top: 285vh; right: 5vw; }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
-      .card .logo-animado { width: 72vw; transform: translateX(-6px); }
-      .box-1 { left: 3vw; width: 220px; top: 70vh; }
-      .box-2 { right: 3vw; width: 230px; top: 135vh; }
-      .box-3 { left: 3vw; width: 240px; top: 205vh; }
-      .box-4 { right: 3vw; width: 220px; top: 275vh; }
+      .card .logo-animado { width: 72vw; margin-left: -0.6rem; }
+      
+      .gallery-item { width: 230px; }
+      .item-1 { left: 3vw; top: 60vh; }
+      .item-2 { right: 3vw; top: 125vh; }
+      .item-3 { left: 3vw; top: 195vh; }
+      .item-4 { right: 3vw; top: 265vh; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -211,6 +224,7 @@
   <main>
     <section class="card">
       
+      <!-- Cabecera fija con el vídeo WebM integrado -->
       <div class="card-header">
         <h1 style="all:unset">
           <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
@@ -221,27 +235,28 @@
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
 
+      <!-- Área con scroll interno dentro de la tarjeta -->
       <div class="card-scroll-area">
         <div class="scroll-inner-content">
           
-          <div class="photo-container box-1">
-            <img src="assets/foto-1.jpg" alt="Proceso de diseño 1" onerror="this.src='https://placehold.co/340x420/e2d7c5/60281B?text=Foto+1'">
-            <div class="photo-caption">Bocetos iniciales en el estudio (01)</div>
+          <div class="gallery-item item-1">
+            <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
+            <div class="gallery-caption">Proceso creativo en taller, 2026.</div>
           </div>
 
-          <div class="photo-container box-2">
-            <img src="assets/foto-2.jpg" alt="Proceso de diseño 2" onerror="this.src='https://placehold.co/360x300/e2d7c5/60281B?text=Foto+2'">
-            <div class="photo-caption">Pruebas de tejido y patronaje (02)</div>
+          <div class="gallery-item item-2">
+            <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
+            <div class="gallery-caption">Bocetos iniciales sobre tejido crudo.</div>
           </div>
 
-          <div class="photo-container box-3">
-            <img src="assets/foto-3.jpg" alt="Proceso de diseño 3" onerror="this.src='https://placehold.co/380x440/e2d7c5/60281B?text=Foto+3'">
-            <div class="photo-caption">Detalles de costura y acabados (03)</div>
+          <div class="gallery-item item-3">
+            <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
+            <div class="gallery-caption">Estudio de volúmenes y formas.</div>
           </div>
 
-          <div class="photo-container box-4">
-            <img src="assets/foto-4.jpg" alt="Proceso de diseño 4" onerror="this.src='https://placehold.co/350x380/e2d7c5/60281B?text=Foto+4'">
-            <div class="photo-caption">Montaje final de colección (04)</div>
+          <div class="gallery-item item-4">
+            <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
+            <div class="gallery-caption">Materiales listos para la pasarela.</div>
           </div>
 
         </div>
@@ -255,6 +270,7 @@
   <script>
     const video = document.getElementById('logoVideo');
     
+    // Al terminar la animación, congela el vídeo exactamente en el último frame
     video.addEventListener('ended', () => {
       video.pause();
       video.currentTime = video.duration;
