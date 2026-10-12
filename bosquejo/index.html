@@ -108,7 +108,7 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Área con scroll interno dentro de la tarjeta */
+    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
       width: 100%;
@@ -206,8 +206,8 @@
       <!-- Logo y lema fijos en el centro -->
       <div class="card-header">
         <h1 style="all:unset">
-          <!-- Usamos una imagen que cambiará automáticamente a estática al terminar de escribirse -->
-          <img class="logo-animado" id="logoImg" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
+          <!-- Al exportar el GIF configurado para reproducirse 1 sola vez (loop: 0 / no repetir), se detendrá solo en el último frame -->
+          <img class="logo-animado" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
         </h1>
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
@@ -226,18 +226,5 @@
   </main>
 
   <div class="hojas" aria-hidden="true"></div>
-
-  <script>
-    // Calcula la duración aproximada del gif en milisegundos (ajusta este valor según lo rápido que quieras que dure la animación completa)
-    const duracionAnimacionMs = 1200; // 1.2 segundos (cámbialo si tu gif rápido dura un poco más o menos)
-
-    setTimeout(() => {
-      const logoImg = document.getElementById('logoImg');
-      if (logoImg) {
-        // Reemplaza el gif animado por la imagen PNG estática del logo completo
-        logoImg.src = 'assets/bosquejo-logo-estatico.png';
-      }
-    }, duracionAnimacionMs);
-  </script>
 </body>
 </html>
