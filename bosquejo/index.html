@@ -19,21 +19,20 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* Habilitamos el scroll vertical de manera nativa */
     html, body {
-      min-height: 350vh; /* Altura total de la página para permitir scroll amplio */
+      height: 100%;
+      overflow: hidden; /* Evitamos scroll general de la página para que la tarjeta sea la única que gestione el contenido */
     }
     body {
       font-family: 'Roboto', system-ui, sans-serif;
       font-weight: 300;
       color: var(--corteza);
       background: var(--corteza);
-      overflow-x: hidden;
     }
 
     /* Fondo fotográfico desenfocado fijo */
     .bg {
-      position: fixed; inset: 0;
+      position: fixed; inset: -4%;
       background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
       filter: blur(14px) saturate(.9);
       z-index: 0;
@@ -72,17 +71,25 @@
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
       padding: 5.5rem 9% 6%;
-      pointer-events: none;
     }
     .card {
       position: relative; width: 100%; height: 100%;
       background: var(--arena);
       border-radius: .6rem;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: clamp(2rem, 9vh, 6rem);
+      display: flex; flex-direction: column; align-items: center;
       overflow: hidden;
       animation: entra 1.6s ease both;
-      pointer-events: auto;
+    }
+
+    /* Cabecera fija dentro de la tarjeta con el logo y el lema que nunca se mueven */
+    .card-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: clamp(2rem, 9vh, 6rem);
+      pointer-events: none;
+      z-index: 5;
     }
     
     .card .logo-animado {
@@ -101,15 +108,26 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Capa de contenido flotante (cuadrados negros de testeo y textos) que suben al hacer scroll */
-    .scroll-content {
-      position: absolute;
-      top: 0; left: 0; width: 100%;
+    /* Contenedor con scroll INTERNO dentro de la tarjeta crema (donde se ven las fotos y textos grandes) */
+    .card-scroll-area {
+      position: relative;
+      width: 100%;
       height: 100%;
-      z-index: 20;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 10;
+      padding-bottom: 10rem;
+    }
+
+    /* Contenedor interno largo para permitir el desplazamiento dentro de la tarjeta */
+    .scroll-inner-content {
+      position: relative;
+      width: 100%;
+      height: 350vh; /* Altura para el recorrido del scroll de 10s del vídeo */
       pointer-events: none;
     }
 
+    /* Cuadrados negros de testeo más grandes y distribuidos en el scroll interior */
     .test-item {
       position: absolute;
       background: #111;
@@ -117,27 +135,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 400;
-      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1.2rem;
+      border-radius: 12px;
       pointer-events: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
-    /* Posiciones de los elementos de prueba a lo largo del scroll vertical */
-    .box-1 { top: 110vh; left: 12vw; width: 180px; height: 220px; }
-    .box-2 { top: 150vh; right: 12vw; width: 200px; height: 160px; }
-    .box-3 { top: 210vh; left: 15vw; width: 220px; height: 260px; }
-    .box-4 { top: 270vh; right: 15vw; width: 170px; height: 200px; }
+    .box-1 { top: 60vh; left: 8vw; width: 320px; height: 380px; }
+    .box-2 { top: 120vh; right: 8vw; width: 360px; height: 300px; }
+    .box-3 { top: 200vh; left: 10vw; width: 380px; height: 420px; }
+    .box-4 { top: 280vh; right: 10vw; width: 340px; height: 350px; }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
       .card .logo-animado { width: 72vw; }
-      .box-1 { left: 8vw; width: 120px; height: 150px; }
-      .box-2 { right: 8vw; width: 130px; height: 120px; }
-      .box-3 { left: 10vw; width: 140px; height: 180px; }
-      .box-4 { right: 10vw; width: 120px; height: 150px; }
+      .box-1 { left: 5vw; width: 220px; height: 280px; }
+      .box-2 { right: 5vw; width: 240px; height: 220px; }
+      .box-3 { left: 5vw; width: 250px; height: 310px; }
+      .box-4 { right: 5vw; width: 220px; height: 260px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -161,44 +179,50 @@
     </nav>
   </header>
 
-  <!-- Tarjeta central fija -->
+  <!-- Tarjeta central -->
   <main>
     <section class="card">
-      <h1 style="all:unset">
-        <!-- Usamos un elemento de video optimizado para control por scroll (de 10s de duración) -->
-        <video class="logo-animado" id="logoVideo" muted playsinline preload="auto">
-          <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
-          <source src="assets/bosquejo-logo-escribiendo.mp4" type="video/mp4">
-          Tu navegador no soporta video HTML5.
-        </video>
-      </h1>
-      <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+      
+      <!-- Logo y lema fijos en el centro de la tarjeta -->
+      <div class="card-header">
+        <h1 style="all:unset">
+          <video class="logo-animado" id="logoVideo" muted playsinline preload="auto">
+            <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
+            <source src="assets/bosquejo-logo-escribiendo.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+          </video>
+        </h1>
+        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+      </div>
+
+      <!-- Área con scroll interno dentro de la tarjeta -->
+      <div class="card-scroll-area" id="scrollArea">
+        <div class="scroll-inner-content">
+          <div class="test-item box-1">Foto / Texto Grande 1</div>
+          <div class="test-item box-2">Foto / Texto Grande 2</div>
+          <div class="test-item box-3">Foto / Texto Grande 3</div>
+          <div class="test-item box-4">Foto / Texto Grande 4</div>
+        </div>
+      </div>
+
     </section>
   </main>
 
-  <!-- Contenido que sube al hacer scroll -->
-  <div class="scroll-content">
-    <div class="test-item box-1">Foto Test 1</div>
-    <div class="test-item box-2">Foto Test 2</div>
-    <div class="test-item box-3">Foto Test 3</div>
-    <div class="test-item box-4">Foto Test 4</div>
-  </div>
-
-  <!-- Textura: sombra de hojas (GIF fijo) -->
+  <!-- Textura: sombra de hojas (GIF fijo global) -->
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
     const video = document.getElementById('logoVideo');
+    const scrollArea = document.getElementById('scrollArea');
     
-    // Pausar el vídeo inicialmente al cargar los metadatos
     video.addEventListener('loadedmetadata', function() {
       video.pause();
     });
 
-    // Controlar el avance de los 10 segundos del vídeo en función de la posición del scroll
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    // Sincronizar el progreso de los 10 segundos del vídeo con el desplazamiento dentro de la tarjeta
+    scrollArea.addEventListener('scroll', () => {
+      const scrollTop = scrollArea.scrollTop;
+      const maxScroll = scrollArea.scrollHeight - scrollArea.clientHeight;
       if (maxScroll <= 0) return;
       const scrollFraction = scrollTop / maxScroll;
 
