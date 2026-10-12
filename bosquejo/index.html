@@ -30,6 +30,7 @@
       background: var(--corteza);
     }
 
+    /* Fondo fotográfico desenfocado fijo */
     .bg {
       position: fixed; inset: -4%;
       background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
@@ -37,6 +38,7 @@
       z-index: 0;
     }
 
+    /* Menú superior fijo */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 40;
       display: flex; align-items: center; justify-content: space-between;
@@ -55,6 +57,7 @@
     .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
     .nav a:focus-visible { outline: 1px solid var(--rojo); outline-offset: 2px; }
 
+    /* Sombra de hojas: GIF animado fijo en primer plano */
     .hojas {
       position: fixed; inset: 0; z-index: 30;
       pointer-events: none;
@@ -63,6 +66,7 @@
       opacity: .6;
     }
 
+    /* Tarjeta central fija en pantalla */
     main {
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
@@ -77,6 +81,7 @@
       animation: entra 1.6s ease both;
     }
 
+    /* Cabecera fija con el vídeo (ligeramente a la izquierda, 90% opacidad) y lema en el centro */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -105,6 +110,7 @@
     .lema b { font-weight: 400; font-style: italic; color: #000; }
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
       width: 100%;
@@ -115,7 +121,7 @@
       padding-bottom: 12rem;
 
       scrollbar-width: thin;
-      scrollbar-color: #B8A68C transparent;
+      scrollbar-color: #C5B59D transparent;
     }
 
     .card-scroll-area::-webkit-scrollbar {
@@ -127,20 +133,15 @@
     }
 
     .card-scroll-area::-webkit-scrollbar-thumb {
-      background: #B8A68C;
+      background: #C5B59D;
       border-radius: 10px;
     }
 
     .card-scroll-area::-webkit-scrollbar-thumb:hover {
-      background: #a3927a;
+      background: #b09e86;
     }
 
-    .card-scroll-area::-webkit-scrollbar-button {
-      display: none;
-      height: 0;
-      width: 0;
-    }
-
+    /* Contenedor interno largo para permitir el desplazamiento */
     .scroll-inner-content {
       position: relative;
       width: 100%;
@@ -148,6 +149,7 @@
       pointer-events: none;
     }
 
+    /* Elementos de imagen con pie de foto en tipografía Roboto */
     .gallery-item {
       position: absolute;
       display: flex;
@@ -178,10 +180,10 @@
       opacity: 0.85;
     }
 
-    /* Posiciones iniciales mucho más abajo */
-    .item-1 { top: 85vh; left: 4vw; }
-    .item-2 { top: 160vh; right: 4vw; }
-    .item-3 { top: 235vh; left: 5vw; }
+    /* Posiciones de las imágenes */
+    .item-1 { top: 75vh; left: 4vw; }
+    .item-2 { top: 150vh; right: 4vw; }
+    .item-3 { top: 230vh; left: 5vw; }
     .item-4 { top: 310vh; right: 5vw; }
 
     @media (max-width: 760px) {
@@ -191,10 +193,10 @@
       .card .logo-animado { width: 72vw; margin-left: -0.6rem; }
       
       .gallery-item { width: 230px; }
-      .item-1 { left: 3vw; top: 75vh; }
-      .item-2 { right: 3vw; top: 150vh; }
-      .item-3 { left: 3vw; top: 225vh; }
-      .item-4 { right: 3vw; top: 300vh; }
+      .item-1 { left: 3vw; top: 70vh; }
+      .item-2 { right: 3vw; top: 140vh; }
+      .item-3 { left: 3vw; top: 215vh; }
+      .item-4 { right: 3vw; top: 290vh; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -221,9 +223,11 @@
   <main>
     <section class="card">
       
+      <!-- Cabecera fija con vídeo MOV (para iOS) y WebM (para escritorio/Android) -->
       <div class="card-header">
         <h1 style="all:unset">
           <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
+            <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
             <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
             Tu navegador no soporta video HTML5.
           </video>
@@ -231,6 +235,7 @@
         <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
       </div>
 
+      <!-- Área con scroll interno dentro de la tarjeta -->
       <div class="card-scroll-area">
         <div class="scroll-inner-content">
           
@@ -265,6 +270,7 @@
   <script>
     const video = document.getElementById('logoVideo');
     
+    // Al terminar la animación, congela el vídeo exactamente en el último frame
     video.addEventListener('ended', () => {
       video.pause();
       video.currentTime = video.duration;
