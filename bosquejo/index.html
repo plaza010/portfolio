@@ -117,6 +117,28 @@
       overflow-x: hidden;
       z-index: 5;
       padding-bottom: 10rem;
+
+      /* Estilo personalizado para la barra de desplazamiento (Firefox) */
+      scrollbar-width: thin;
+      scrollbar-color: #7d705c transparent;
+    }
+
+    /* Estilo personalizado para la barra de desplazamiento (Chrome, Edge y Safari) */
+    .card-scroll-area::-webkit-scrollbar {
+      width: 8px; /* Ancho fino y elegante */
+    }
+
+    .card-scroll-area::-webkit-scrollbar-track {
+      background: transparent; /* Sin fondo blanco */
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb {
+      background: #7d705c; /* Tono más oscuro y elegante basado en el color EDE0CC */
+      border-radius: 10px;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb:hover {
+      background: #60281B; /* Color corteza al pasar el ratón por encima */
     }
 
     /* Contenedor interno largo para permitir el desplazamiento */
@@ -152,57 +174,4 @@
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
       .card .logo-animado { width: 72vw; }
-      .box-1 { left: 5vw; width: 220px; height: 280px; }
-      .box-2 { right: 5vw; width: 240px; height: 220px; }
-      .box-3 { left: 5vw; width: 250px; height: 310px; }
-      .box-4 { right: 5vw; width: 220px; height: 260px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card { animation: none; }
-      .hojas { display: none; }
-    }
-  </style>
-</head>
-<body>
-  <div class="bg" role="presentation"></div>
-
-  <header class="nav">
-    <a href="./" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
-    <nav aria-label="Principal">
-      <ul>
-        <li><a href="#tienda">Tienda</a></li>
-        <li><a href="#festival" aria-current="page">El festival</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="card">
-      
-      <!-- Logo y lema fijos en el centro -->
-      <div class="card-header">
-        <h1 style="all:unset">
-          <img class="logo-animado" src="assets/bosquejo-logo-escribiendo.gif" alt="Bosquejo">
-        </h1>
-        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
-      </div>
-
-      <!-- Área con scroll interno dentro de la tarjeta -->
-      <div class="card-scroll-area">
-        <div class="scroll-inner-content">
-          <div class="test-item box-1">Foto / Texto Grande 1</div>
-          <div class="test-item box-2">Foto / Texto Grande 2</div>
-          <div class="test-item box-3">Foto / Texto Grande 3</div>
-          <div class="test-item box-4">Foto / Texto Grande 4</div>
-        </div>
-      </div>
-
-    </section>
-  </main>
-
-  <div class="hojas" aria-hidden="true"></div>
-</body>
-</html>
+      .box-1 { left:
