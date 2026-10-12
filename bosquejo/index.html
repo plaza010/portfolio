@@ -92,7 +92,7 @@
       z-index: 2;
     }
     
-    /* Estilos comunes para el logo (tanto vídeo como imagen) */
+    /* Estilos comunes para el logo */
     .card .logo-animado,
     .card .logo-estatico {
       width: min(44vw, 560px);
@@ -103,9 +103,9 @@
       opacity: 0.90;
     }
 
-    /* Por defecto en escritorio: se muestra el vídeo, se oculta la imagen estática */
-    .logo-estatico { display: none; }
-    .logo-animado { display: block; }
+    /* REGLA DE ESCRITORIO: Mostrar vídeo, ocultar imagen estática estrictamente */
+    .logo-animado { display: block !important; }
+    .logo-estatico { display: none !important; }
 
     .lema {
       font-style: italic; font-weight: 300;
@@ -192,7 +192,7 @@
     .item-3 { top: 230vh; left: 5vw; }
     .item-4 { top: 310vh; right: 5vw; }
 
-    /* En dispositivos móviles: se oculta el vídeo y se muestra la imagen estática PNG */
+    /* REGLA DE MÓVIL: Ocultar vídeo, mostrar imagen estática PNG */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
