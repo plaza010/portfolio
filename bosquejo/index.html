@@ -144,11 +144,11 @@
     .scroll-inner-content {
       position: relative;
       width: 100%;
-      height: 300vh;
+      height: 320vh;
       pointer-events: none;
     }
 
-    /* Cuadrados negros de testeo grandes y distribuidos */
+    /* Cuadrados negros alejados del centro hacia los laterales */
     .test-item {
       position: absolute;
       background: #111;
@@ -163,20 +163,20 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
-    .box-1 { top: 50vh; left: 8vw; width: 320px; height: 380px; }
-    .box-2 { top: 110vh; right: 8vw; width: 360px; height: 300px; }
-    .box-3 { top: 180vh; left: 10vw; width: 380px; height: 420px; }
-    .box-4 { top: 240vh; right: 10vw; width: 340px; height: 350px; }
+    .box-1 { top: 45vh; left: 3vw; width: 340px; height: 400px; }
+    .box-2 { top: 110vh; right: 3vw; width: 360px; height: 320px; }
+    .box-3 { top: 185vh; left: 4vw; width: 380px; height: 440px; }
+    .box-4 { top: 255vh; right: 4vw; width: 350px; height: 370px; }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
       .card .logo-animado { width: 72vw; }
-      .box-1 { left: 5vw; width: 220px; height: 280px; }
-      .box-2 { right: 5vw; width: 240px; height: 220px; }
-      .box-3 { left: 5vw; width: 250px; height: 310px; }
-      .box-4 { right: 5vw; width: 220px; height: 260px; }
+      .box-1 { left: 2vw; width: 210px; height: 270px; }
+      .box-2 { right: 2vw; width: 220px; height: 230px; }
+      .box-3 { left: 2vw; width: 230px; height: 300px; }
+      .box-4 { right: 2vw; width: 210px; height: 250px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
