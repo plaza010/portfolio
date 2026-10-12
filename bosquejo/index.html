@@ -191,3 +191,52 @@
   <header class="nav">
     <a href="./" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
     <nav aria-label="Principal">
+      <ul>
+        <li><a href="#tienda">Tienda</a></li>
+        <li><a href="#festival" aria-current="page">El festival</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      
+      <!-- Cabecera fija con el vídeo WebM integrado -->
+      <div class="card-header">
+        <h1 style="all:unset">
+          <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
+            <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
+            Tu navegador no soporta video HTML5.
+          </video>
+        </h1>
+        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+      </div>
+
+      <!-- Área con scroll interno dentro de la tarjeta -->
+      <div class="card-scroll-area">
+        <div class="scroll-inner-content">
+          <div class="test-item box-1">Foto / Texto Grande 1</div>
+          <div class="test-item box-2">Foto / Texto Grande 2</div>
+          <div class="test-item box-3">Foto / Texto Grande 3</div>
+          <div class="test-item box-4">Foto / Texto Grande 4</div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="hojas" aria-hidden="true"></div>
+
+  <script>
+    const video = document.getElementById('logoVideo');
+    
+    // Al terminar la animación, congela el vídeo exactamente en el último frame
+    video.addEventListener('ended', () => {
+      video.pause();
+      video.currentTime = video.duration;
+    });
+  </script>
+</body>
+</html>
