@@ -22,12 +22,12 @@
     html, body {
       height: 100%;
       overflow: hidden;
+      background: var(--corteza);
     }
     body {
       font-family: 'Roboto', system-ui, sans-serif;
       font-weight: 300;
       color: var(--corteza);
-      background: var(--corteza);
     }
 
     /* Fondo fotográfico desenfocado fijo */
@@ -74,7 +74,7 @@
     }
     .card {
       position: relative; width: 100%; height: 100%;
-      background: var(--arena);
+      background-color: #EBDFCC !important;
       border-radius: .6rem;
       display: flex; flex-direction: column; align-items: center;
       overflow: hidden;
@@ -100,6 +100,7 @@
       position: relative;
       width: 100%;
       height: 100%;
+      background-color: #EBDFCC !important;
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 5;
@@ -155,9 +156,70 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
-      transition: transform .35s cubic-bezier(.25,1,.5,1);
     }
 
     .product-item img {
       width: 100%;
       height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 0px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      display: block;
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+
+    /* EFECTO HOVER: Elevación y leve aumento de tamaño al pasar el cursor */
+    .product-item:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .product-item:hover img {
+      transform: scale(1.03);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.22);
+    }
+
+    .product-info {
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .product-title {
+      font-family: 'Roboto', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      color: var(--corteza);
+      text-transform: uppercase;
+    }
+
+    .product-price {
+      font-family: 'Roboto', system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--corteza);
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .store-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+      }
+      .card-scroll-area {
+        padding: 6rem 1.5rem 3rem 1.5rem;
+      }
+      .card-brand {
+        top: 1.5rem;
+        left: 1.5rem;
+        width: 110px;
+      }
+      .product-item {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation:
