@@ -100,10 +100,17 @@
       align-items: center;
     }
 
-    .logo-box img, .logo-box video {
+    /* Por defecto en escritorio se muestra el vídeo y se oculta la imagen estática */
+    .logo-box video {
       width: 100%;
       height: auto;
       display: block;
+      opacity: 0.95;
+    }
+    .logo-box img.logo-estatico {
+      display: none;
+      width: 100%;
+      height: auto;
       opacity: 0.95;
     }
 
@@ -160,7 +167,6 @@
       transform: translateY(0);
     }
 
-    /* Clase para desvanecer elementos cuando se van de pantalla o llega el final */
     .gallery-item.fade-out, .manifesto-text.fade-out {
       opacity: 0;
       transform: translateY(-20px);
@@ -251,10 +257,15 @@
       margin-bottom: 0.2rem;
     }
 
+    /* REGLA ESTRICTA PARA MÓVILES: Ocultar vídeo y mostrar logo estático PNG */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       main { padding: 4.5rem 5% 7%; }
       .logo-box { width: 72vw; }
+      
+      .logo-box video { display: none !important; }
+      .logo-box img.logo-estatico { display: block !important; }
+
       .gallery-item { width: 230px; }
       .manifesto-text { width: 250px; font-size: 1rem; }
 
@@ -293,15 +304,15 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera con logo animado y subtítulo con fundido con retraso -->
+      <!-- Cabecera con vídeo para PC, imagen estática para móvil y subtítulo con fundido -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
           <div class="logo-box">
             <video id="logoVideo" muted playsinline autoplay preload="auto">
               <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
               <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
-              <img src="assets/bosquejo-logo-estatico.png" alt="Bosquejo Fest">
             </video>
+            <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
           </div>
         </h1>
         <p class="lema">Festival de la moda en proceso.</p>
