@@ -90,17 +90,17 @@
       opacity: 0.90;
     }
 
-    /* Área de scroll interno con el padding clásico de la tienda */
+    /* Área de scroll interno con el padding superior optimizado */
     .card-scroll-area {
       position: relative;
       width: 100%; height: 100%;
       background: var(--arena);
       overflow-y: auto; overflow-x: hidden;
-      z-index: 5; padding: 7rem 5% 4rem;
+      z-index: 5; padding: 5.5rem 5% 4rem;
       scrollbar-width: thin; scrollbar-color: #C5B59D transparent;
     }
 
-    /* Alineación centrada verticalmente con la imagen */
+    /* Alineación vertical centrada con respecto a la imagen */
     .about-layout {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -128,7 +128,7 @@
       font-weight: 500;
     }
 
-    /* Imagen arriba en su posición original con el carrusel */
+    /* Imagen arriba en su sitio original con el carrusel */
     .about-image-col {
       width: 100%;
       display: flex;
@@ -198,7 +198,7 @@
         margin: 0 auto;
       }
       .card-scroll-area {
-        padding: 6rem 1.5rem 3rem 1.5rem;
+        padding: 5rem 1.5rem 3rem 1.5rem;
       }
       .card-brand {
         top: 1.5rem;
@@ -257,7 +257,7 @@
             </p>
           </div>
 
-          <!-- Columna con el carrusel de imágenes (en su altura original, centrada con el texto) -->
+          <!-- Columna con el carrusel de imágenes -->
           <div class="about-image-col">
             <div class="image-slideshow" id="slideshow">
               <img src="assets/nosotros-1.jpg" alt="Bosquejo Fest ambiente 1" class="active">
