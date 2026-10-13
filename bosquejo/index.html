@@ -100,7 +100,7 @@
       align-items: center;
     }
 
-    /* Por defecto en escritorio se muestra el vídeo y se oculta la imagen estática */
+    /* Por defecto en escritorio se muestra el vídeo */
     .logo-box video {
       width: 100%;
       height: auto;
@@ -257,7 +257,7 @@
       margin-bottom: 0.2rem;
     }
 
-    /* REGLA ESTRICTA PARA MÓVILES: Ocultar vídeo y mostrar logo estático PNG */
+    /* REGLA ESTRICTAS PARA MÓVILES: Ocultar por completo el vídeo y mostrar la imagen estática */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       main { padding: 4.5rem 5% 7%; }
@@ -304,7 +304,7 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera con vídeo para PC, imagen estática para móvil y subtítulo con fundido -->
+      <!-- Cabecera con vídeo para escritorio e imagen estática pura para móvil -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
           <div class="logo-box">
@@ -370,12 +370,18 @@
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
-    const video = document.getElementById('logoVideo');
-    if (video) {
-      video.addEventListener('ended', () => {
-        video.pause();
-        video.currentTime = video.duration;
-      });
+    // En móviles eliminamos el elemento video por completo para evitar cuadros negros de carga
+    if (window.innerWidth <= 760) {
+      const v = document.getElementById('logoVideo');
+      if (v) v.remove();
+    } else {
+      const video = document.getElementById('logoVideo');
+      if (video) {
+        video.addEventListener('ended', () => {
+          video.pause();
+          video.currentTime = video.duration;
+        });
+      }
     }
 
     const scrollArea = document.getElementById('scrollArea');
@@ -389,12 +395,10 @@
         const scrollTop = scrollArea.scrollTop;
         const scrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
         
-        // Desvanecer el encabezado principal al empezar a bajar
         let opacity = 1 - (scrollTop / 120);
         if (opacity < 0) opacity = 0;
         cardHeader.style.opacity = opacity;
 
-        // Aparición dinámica de elementos al hacer scroll
         fadeElements.forEach(el => {
           const rectTop = el.offsetTop - scrollArea.scrollTop;
           if (rectTop < scrollArea.clientHeight * 0.75) {
@@ -402,7 +406,6 @@
           }
         });
 
-        // Umbral para mostrar la sección final y ocultar la última foto con fundido
         const scrollThreshold = scrollHeight - 120;
         if (scrollTop >= scrollThreshold) {
           finalSection.classList.add('visible');
