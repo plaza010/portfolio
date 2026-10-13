@@ -87,24 +87,23 @@
       top: 0; left: 0; right: 0;
       height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: clamp(1.5rem, 6vh, 4rem);
+      gap: clamp(1.5rem, 5vh, 3.5rem);
       pointer-events: none;
       z-index: 2;
       transition: opacity 0.35s ease-out;
     }
     
-    /* Estilos comunes para el logo */
-    .card .logo-animado,
-    .card .logo-estatico {
+    /* REGLAS ESTRICTAS DE LOGO: Vídeo para escritorio, PNG para móvil */
+    .card .logo-animado {
       width: min(44vw, 560px);
       height: auto;
-      display: block;
+      display: block !important;
       margin-left: -1.2rem;
       opacity: 0.90;
     }
-
-    .logo-animado { display: block !important; }
-    .logo-estatico { display: none !important; }
+    .card .logo-estatico {
+      display: none !important;
+    }
 
     /* Subtítulo bajo el logo */
     .lema {
@@ -215,14 +214,14 @@
       color: var(--corteza);
     }
 
-    /* REGLA DE MÓVIL */
+    /* REGLA DE MÓVIL: Ocultar vídeo, mostrar imagen estática PNG */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
       
-      .logo-animado { display: none !important; }
-      .logo-estatico { display: block !important; width: 72vw; margin-left: -0.6rem; }
+      .card .logo-animado { display: none !important; }
+      .card .logo-estatico { display: block !important; width: 72vw; margin-left: -0.6rem; }
       
       .gallery-item { width: 230px; }
       .manifesto-text { width: 250px; font-size: 1rem; }
@@ -268,7 +267,7 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera fija con vídeo/logo y el subtítulo restaurado -->
+      <!-- Cabecera fija con vídeo para ordenador, imagen estática para móvil y subtítulo -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
           <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
