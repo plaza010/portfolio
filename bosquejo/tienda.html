@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Tienda — Bosquejo Fest</title>
-  <meta name="description" content="Colección de piezas únicas, patrones en proceso y merchandising de Bosquejo Fest.">
+  <meta name="description" content="Entradas y pases para Bosquejo Fest: General y Estudiante.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -88,124 +88,109 @@
       width: 100%; height: 100%;
       background: #EBDFCC !important;
       overflow-y: auto; overflow-x: hidden;
-      z-index: 5; padding: 2.5rem 6% 6rem;
+      z-index: 5; padding: 3.5rem 6% 5rem;
       scrollbar-width: thin; scrollbar-color: #C5B59D transparent;
     }
 
-    /* Cabecera de la tienda */
-    .shop-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 2.5rem; padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(96, 40, 27, 0.15);
-    }
-    .shop-title {
-      font-style: italic; font-weight: 300;
-      font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--corteza);
-    }
-    .shop-title strong { font-weight: 500; }
-
-    .cart-trigger {
-      background: transparent; border: 1px solid var(--corteza);
-      padding: .4rem .9rem; border-radius: 2rem; font-family: inherit;
-      font-style: italic; font-size: 1rem; color: var(--corteza);
-      cursor: pointer; transition: all .25s ease;
-    }
-    .cart-trigger:hover { background: var(--corteza); color: var(--arena); }
-
-    /* Parrilla de productos */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 2rem;
+    .tickets-container {
+      max-width: 950px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
     }
 
-    .product-card {
-      display: flex; flex-direction: column; gap: .8rem;
+    .tickets-header {
+      text-align: center;
     }
-    .product-thumb {
-      width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: block;
-      transition: transform .3s ease;
-    }
-    .product-card:hover .product-thumb {
-      transform: translateY(-4px);
-    }
-
-    .product-info {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: .5rem;
-    }
-    .product-name {
-      font-style: italic; font-weight: 400; font-size: 1.1rem;
+    .tickets-title {
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 2.6vw, 2.5rem);
       color: var(--corteza);
     }
-    .product-price {
-      font-weight: 500; font-size: 1.05rem; color: var(--rojo);
+    .tickets-title strong {
+      font-weight: 500;
     }
 
-    .product-desc {
-      font-style: italic; font-weight: 300; font-size: .9rem;
-      color: var(--corteza); opacity: .8; line-height: 1.4;
+    /* Cuadrícula de 2 opciones: General y Estudiante */
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
     }
 
-    .add-btn {
-      align-self: flex-start; background: transparent; border: none;
-      color: var(--corteza); font-family: inherit; font-style: italic;
-      font-size: .95rem; text-decoration: underline; cursor: pointer;
-      padding: 0; margin-top: .2rem; opacity: .7; transition: opacity .2s;
-    }
-    .add-btn:hover { opacity: 1; color: var(--rojo); }
-
-    /* Modal / Panel lateral de Carrito */
-    .cart-drawer {
-      position: fixed; top: 0; right: 0; bottom: 0; width: min(400px, 85vw);
-      background: var(--arena); z-index: 100; box-shadow: -10px 0 30px rgba(0,0,0,0.2);
-      padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;
-      transform: translateX(100%); transition: transform .35s ease;
-    }
-    .cart-drawer.open { transform: translateX(0); }
-
-    .cart-header-panel {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-bottom: 1rem; border-bottom: 1px solid rgba(96, 40, 27, 0.15);
-    }
-    .cart-close {
-      background: transparent; border: none; font-size: 1.5rem;
-      color: var(--corteza); cursor: pointer;
+    .ticket-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
     }
 
-    .cart-items {
-      flex: 1; overflow-y: auto; margin: 1.5rem 0;
-      display: flex; flex-direction: column; gap: 1rem;
+    /* Marco de imagen con efecto zoom al pasar el ratón */
+    .ticket-image-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: .3rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
 
-    .cart-item {
-      display: flex; justify-content: space-between; align-items: center;
-      font-style: italic; font-size: 1rem;
+    .ticket-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
     }
 
-    .cart-footer-panel {
-      border-top: 1px solid rgba(96, 40, 27, 0.15);
-      padding-top: 1.2rem; display: flex; flex-direction: column; gap: 1rem;
+    /* Efecto de agrandado / zoom de la imagen */
+    .ticket-card:hover .ticket-image-wrap img {
+      transform: scale(1.08);
     }
 
-    .cart-total {
-      display: flex; justify-content: space-between;
-      font-style: italic; font-size: 1.2rem; font-weight: 500;
+    .ticket-info {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
     }
 
-    .checkout-btn {
-      width: 100%; background: var(--corteza); color: var(--arena);
-      border: none; padding: .8rem; border-radius: .4rem;
-      font-family: inherit; font-style: italic; font-size: 1.05rem;
-      cursor: pointer; transition: background .2s;
+    .ticket-type {
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--corteza);
     }
-    .checkout-btn:hover { background: var(--rojo); }
+    .ticket-type strong {
+      font-weight: 500;
+    }
+
+    .ticket-price {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.25rem;
+      color: var(--rojo);
+    }
+
+    .ticket-desc {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: var(--corteza);
+      opacity: .9;
+    }
+    .ticket-desc strong {
+      font-weight: 500;
+    }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       main { padding: 4.5rem 4% 6%; }
-      .products-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+      .tickets-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
   </style>
 </head>
@@ -227,128 +212,48 @@
     <section class="card">
       <div class="card-scroll-area">
         
-        <div class="shop-header">
-          <h1 class="shop-title"><strong>Tienda</strong> de piezas en proceso</h1>
-          <button class="cart-trigger" id="openCart">Carrito (<span id="cartCount">0</span>)</button>
-        </div>
+        <div class="tickets-container">
+          <div class="tickets-header">
+            <h1 class="tickets-title">Entradas y pases <strong>Bosquejo Fest</strong></h1>
+          </div>
 
-        <div class="products-grid">
-          
-          <!-- Producto 1 -->
-          <article class="product-card">
-            <img src="assets/foto-1.jpg" alt="Camiseta Trazo Inicial" class="product-thumb">
-            <div class="product-info">
-              <h2 class="product-name">Camiseta <strong>Trazo Inicial</strong></h2>
-              <span class="product-price">35€</span>
-            </div>
-            <p class="product-desc">Algodón orgánico 100% con serigrafía de serigrafía artesanal.</p>
-            <button class="add-btn" onclick="addToCart('Camiseta Trazo Inicial', 35)">Añadir al carrito</button>
-          </article>
+          <div class="tickets-grid">
+            
+            <!-- Opción 1: Entrada General -->
+            <article class="ticket-card">
+              <div class="ticket-image-wrap">
+                <img src="assets/foto-1.jpg" alt="Entrada General Bosquejo Fest">
+              </div>
+              <div class="ticket-info">
+                <h2 class="ticket-type">Entrada <strong>General</strong></h2>
+                <span class="ticket-price">45€</span>
+                <p class="ticket-desc">
+                  Acceso completo durante los <strong>dos días</strong> de festival, talleres abiertos, mesas de trabajo y charlas en el <strong>bosque</strong>.
+                </p>
+              </div>
+            </article>
 
-          <!-- Producto 2 -->
-          <article class="product-card">
-            <img src="assets/foto-2.jpg" alt="Tote Bag En Construcción" class="product-thumb">
-            <div class="product-info">
-              <h2 class="product-name">Tote Bag <strong>En Construcción</strong></h2>
-              <span class="product-price">22€</span>
-            </div>
-            <p class="product-desc">Lona resistente con costuras expuestas y bolsillo interior.</p>
-            <button class="add-btn" onclick="addToCart('Tote Bag En Construcción', 22)">Añadir al carrito</button>
-          </article>
+            <!-- Opción 2: Entrada Estudiante -->
+            <article class="ticket-card">
+              <div class="ticket-image-wrap">
+                <img src="assets/foto-2.jpg" alt="Entrada Estudiante Bosquejo Fest">
+              </div>
+              <div class="ticket-info">
+                <h2 class="ticket-type">Entrada <strong>Estudiante</strong></h2>
+                <span class="ticket-price">28€</span>
+                <p class="ticket-desc">
+                  Pase bonificado para <strong>estudiantes de moda y diseño</strong>. Imprescindible presentar <strong>acreditación o carné</strong> en el acceso.
+                </p>
+              </div>
+            </article>
 
-          <!-- Producto 3 -->
-          <article class="product-card">
-            <img src="assets/foto-3.jpg" alt="Fanzine Bosquejo Nº 0" class="product-thumb">
-            <div class="product-info">
-              <h2 class="product-name">Fanzine <strong>Bosquejo Nº 0</strong></h2>
-              <span class="product-price">15€</span>
-            </div>
-            <p class="product-desc">Edición limitada impresa en risografía con los bocetos del festival.</p>
-            <button class="add-btn" onclick="addToCart('Fanzine Bosquejo Nº 0', 15)">Añadir al carrito</button>
-          </article>
-
-          <!-- Producto 4 -->
-          <article class="product-card">
-            <img src="assets/foto-4.jpg" alt="Sudadera Patrón Inacabado" class="product-thumb">
-            <div class="product-info">
-              <h2 class="product-name">Sudadera <strong>Patrón Inacabado</strong></h2>
-              <span class="product-price">65€</span>
-            </div>
-            <p class="product-desc">Corte holgado en tono arena con bordados a mano en verde y rojo.</p>
-            <button class="add-btn" onclick="addToCart('Sudadera Patrón Inacabado', 65)">Añadir al carrito</button>
-          </article>
-
+          </div>
         </div>
 
       </div>
     </section>
   </main>
 
-  <!-- Panel Carrito -->
-  <aside class="cart-drawer" id="cartDrawer">
-    <div class="cart-header-panel">
-      <h2 style="font-style:italic; font-weight:400; color:var(--corteza);">Tu <strong>Carrito</strong></h2>
-      <button class="cart-close" id="closeCart">&times;</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p style="font-style:italic; opacity:.6;">El carrito está vacío.</p>
-    </div>
-    <div class="cart-footer-panel">
-      <div class="cart-total">
-        <span>Total:</span>
-        <span id="cartTotal">0€</span>
-      </div>
-      <button class="checkout-btn" onclick="alert('Próximamente disponible el pago en línea.')">Finalizar pedido</button>
-    </div>
-  </aside>
-
   <div class="hojas" aria-hidden="true"></div>
-
-  <script>
-    let cart = [];
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCart();
-      document.getElementById('cartDrawer').classList.add('open');
-    }
-
-    function updateCart() {
-      const cartCount = document.getElementById('cartCount');
-      const cartItems = document.getElementById('cartItems');
-      const cartTotal = document.getElementById('cartTotal');
-
-      cartCount.textContent = cart.length;
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<p style="font-style:italic; opacity:.6;">El carrito está vacío.</p>';
-        cartTotal.textContent = '0€';
-        return;
-      }
-
-      let html = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price;
-        html += `
-          <div class="cart-item">
-            <span><strong>${item.name}</strong></span>
-            <span>${item.price}€</span>
-          </div>
-        `;
-      });
-
-      cartItems.innerHTML = html;
-      cartTotal.textContent = total + '€';
-    }
-
-    document.getElementById('openCart').addEventListener('click', () => {
-      document.getElementById('cartDrawer').classList.add('open');
-    });
-
-    document.getElementById('closeCart').addEventListener('click', () => {
-      document.getElementById('cartDrawer').classList.remove('open');
-    });
-  </script>
 </body>
 </html>
