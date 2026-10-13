@@ -125,7 +125,7 @@
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 5;
-      padding-bottom: 12rem;
+      padding-bottom: 8rem;
       scrollbar-width: thin;
       scrollbar-color: #C5B59D transparent;
     }
@@ -133,7 +133,7 @@
     .scroll-inner-content {
       position: relative;
       width: 100%;
-      height: 520vh;
+      height: 410vh;
       background: #EBDFCC !important;
       pointer-events: none;
     }
@@ -170,23 +170,23 @@
       pointer-events: auto;
     }
 
-    /* Posiciones de la galería */
-    .item-1 { top: 75vh; left: 8vw; }
-    .text-1  { top: 90vh; right: 12vw; }
+    /* Posiciones equilibradas de la galería */
+    .item-1 { top: 70vh; left: 8vw; }
+    .text-1  { top: 82vh; right: 12vw; }
 
-    .item-2 { top: 175vh; right: 8vw; }
-    .text-2  { top: 190vh; left: 12vw; }
+    .item-2 { top: 150vh; right: 8vw; }
+    .text-2  { top: 162vh; left: 12vw; }
 
-    .item-3 { top: 275vh; left: 8vw; }
-    .text-3  { top: 290vh; right: 12vw; }
+    .item-3 { top: 230vh; left: 8vw; }
+    .text-3  { top: 242vh; right: 12vw; }
 
-    .item-4 { top: 375vh; right: 8vw; }
-    .text-4  { top: 390vh; left: 12vw; }
+    .item-4 { top: 310vh; right: 8vw; }
+    .text-4  { top: 322vh; left: 12vw; }
 
-    /* Sección final con la frase y los datos del evento */
+    /* Sección final con la frase y los datos del evento perfectamente ubicados */
     .final-section {
       position: absolute;
-      top: 460vh;
+      top: 380vh;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
@@ -206,19 +206,19 @@
     .final-title {
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
       color: var(--corteza);
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.8rem;
     }
 
     .event-info {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.5rem;
       font-family: 'Roboto', system-ui, sans-serif;
       font-style: normal;
       font-weight: 400;
-      font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+      font-size: clamp(0.9rem, 1.2vw, 1.15rem);
       letter-spacing: 0.08em;
       color: var(--corteza);
       text-transform: uppercase;
@@ -236,20 +236,20 @@
       .gallery-item { width: 230px; }
       .manifesto-text { width: 250px; font-size: 1rem; }
 
-      .item-1 { left: 4vw; top: 65vh; }
-      .text-1  { right: 4vw; top: 98vh; }
+      .item-1 { left: 4vw; top: 62vh; }
+      .text-1  { right: 4vw; top: 90vh; }
 
-      .item-2 { right: 4vw; top: 135vh; }
-      .text-2  { left: 4vw; top: 168vh; }
+      .item-2 { right: 4vw; top: 125vh; }
+      .text-2  { left: 4vw; top: 153vh; }
 
-      .item-3 { left: 4vw; top: 205vh; }
-      .text-3  { right: 4vw; top: 238vh; }
+      .item-3 { left: 4vw; top: 188vh; }
+      .text-3  { right: 4vw; top: 216vh; }
 
-      .item-4 { right: 4vw; top: 275vh; }
-      .text-4  { left: 4vw; top: 308vh; }
+      .item-4 { right: 4vw; top: 251vh; }
+      .text-4  { left: 4vw; top: 279vh; }
 
-      .final-section { top: 375vh; }
-      .scroll-inner-content { height: 450vh; }
+      .final-section { top: 315vh; }
+      .scroll-inner-content { height: 360vh; }
     }
   </style>
 </head>
@@ -317,7 +317,7 @@
             Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
           </div>
 
-          <!-- Sección final con la frase y los datos del evento -->
+          <!-- Sección final ajustada y visible -->
           <div class="final-section" id="finalSection">
             <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
             <div class="event-info">
@@ -357,7 +357,7 @@
         if (opacity < 0) opacity = 0;
         cardHeader.style.opacity = opacity;
 
-        const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 150;
+        const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 100;
         if (scrollTop >= scrollThreshold) {
           finalSection.classList.add('visible');
         } else {
