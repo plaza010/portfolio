@@ -135,3 +135,158 @@
     }
 
     .card-scroll-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb {
+      background: #C5B59D;
+      border-radius: 10px;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb:hover {
+      background: #b09e86;
+    }
+
+    /* Contenedor interno largo para permitir el desplazamiento */
+    .scroll-inner-content {
+      position: relative;
+      width: 100%;
+      height: 380vh;
+      pointer-events: none;
+    }
+
+    /* Elementos de imagen con pie de foto en tipografía Roboto */
+    .gallery-item {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      pointer-events: auto;
+      width: 360px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 0px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      display: block;
+    }
+
+    .gallery-caption {
+      font-family: 'Roboto', system-ui, sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--corteza);
+      margin-top: 0.6rem;
+      text-align: left;
+      opacity: 0.85;
+    }
+
+    /* Posiciones de las imágenes */
+    .item-1 { top: 75vh; left: 4vw; }
+    .item-2 { top: 150vh; right: 4vw; }
+    .item-3 { top: 230vh; left: 5vw; }
+    .item-4 { top: 310vh; right: 5vw; }
+
+    /* REGLA DE MÓVIL: Ocultar vídeo, mostrar imagen estática PNG */
+    @media (max-width: 760px) {
+      .nav a { font-size: 1rem; padding: .2rem .25rem; }
+      .nav li + li::before { margin-right: 0; }
+      main { padding: 4.5rem 5% 7%; }
+      
+      .logo-animado { display: none !important; }
+      .logo-estatico { display: block !important; width: 72vw; margin-left: -0.6rem; }
+      
+      .gallery-item { width: 230px; }
+      .item-1 { left: 3vw; top: 70vh; }
+      .item-2 { right: 3vw; top: 140vh; }
+      .item-3 { left: 3vw; top: 215vh; }
+      .item-4 { right: 3vw; top: 290vh; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; }
+      .hojas { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" role="presentation"></div>
+
+  <header class="nav">
+    <a href="index.html" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="index.html" aria-current="page">El festival</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      
+      <!-- Cabecera fija con vídeo para ordenador e imagen PNG estática para móvil -->
+      <div class="card-header">
+        <h1 style="all:unset">
+          <!-- Vídeo para escritorio -->
+          <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
+            <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
+            <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
+            Tu navegador no soporta video HTML5.
+          </video>
+          <!-- Imagen estática para móvil -->
+          <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
+        </h1>
+        <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+      </div>
+
+      <!-- Área con scroll interno dentro de la tarjeta -->
+      <div class="card-scroll-area">
+        <div class="scroll-inner-content">
+          
+          <div class="gallery-item item-1">
+            <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
+            <div class="gallery-caption">Proceso creativo en taller, 2026.</div>
+          </div>
+
+          <div class="gallery-item item-2">
+            <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
+            <div class="gallery-caption">Bocetos iniciales sobre tejido crudo.</div>
+          </div>
+
+          <div class="gallery-item item-3">
+            <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
+            <div class="gallery-caption">Estudio de volúmenes y formas.</div>
+          </div>
+
+          <div class="gallery-item item-4">
+            <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
+            <div class="gallery-caption">Materiales listos para la pasarela.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="hojas" aria-hidden="true"></div>
+
+  <script>
+    const video = document.getElementById('logoVideo');
+    if (video) {
+      video.addEventListener('ended', () => {
+        video.pause();
+        video.currentTime = video.duration;
+      });
+    }
+  </script>
+</body>
+</html>
