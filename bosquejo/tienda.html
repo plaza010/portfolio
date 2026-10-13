@@ -22,7 +22,7 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background: var(--corteza);
+      background: #60281B;
     }
     body {
       font-family: 'Roboto', system-ui, sans-serif;
@@ -44,7 +44,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: .5rem 1rem;
       padding-top: calc(.5rem + env(safe-area-inset-top, 0px));
-      background: var(--arena);
+      background: #EBDFCC;
     }
     .nav img { height: 1.7rem; display: block; }
     .nav ul { list-style: none; display: flex; gap: .2rem; align-items: center; }
@@ -72,14 +72,6 @@
       display: grid; place-items: center;
       padding: 5.5rem 9% 6%;
     }
-    .card {
-      position: relative; width: 100%; height: 100%;
-      background-color: #EBDFCC !important;
-      border-radius: .6rem;
-      display: flex; flex-direction: column; align-items: center;
-      overflow: hidden;
-      animation: entra 1.6s ease both;
-    }
 
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
@@ -100,7 +92,6 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-color: #EBDFCC !important;
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 5;
@@ -222,4 +213,66 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card { animation:
+      .hojas { display: none; }
+      .product-item, .product-card-bg, .product-item img { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" role="presentation"></div>
+
+  <!-- Menú superior -->
+  <header class="nav">
+    <a href="index.html" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="tienda.html" aria-current="page">Tienda</a></li>
+        <li><a href="index.html">El festival</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Tarjeta con estilos en línea directos para ignorar cualquier caché o conflicto -->
+    <section style="position: relative; width: 100%; height: 100%; background: #EBDFCC; border-radius: .6rem; display: flex; flex-direction: column; align-items: center; overflow: hidden; animation: entra 1.6s ease both;">
+      
+      <!-- Logo estático superior izquierdo -->
+      <img src="assets/bosquejo-logo-estatico.png" class="card-brand" alt="Bosquejo">
+
+      <!-- Área de scroll interno con los productos -->
+      <div class="card-scroll-area">
+        <div class="store-container">
+          
+          <!-- Producto 1: Estudiante -->
+          <div class="product-item">
+            <div class="product-card-bg">
+              <img src="assets/tienda-1.jpg" alt="Entrada Estudiante Bosquejo Fest">
+            </div>
+            <div class="product-info">
+              <div class="product-title">ESTUDIANTE</div>
+              <div class="product-price">15€</div>
+            </div>
+          </div>
+
+          <!-- Producto 2: General -->
+          <div class="product-item">
+            <div class="product-card-bg">
+              <img src="assets/tienda-2.jpg" alt="Entrada General Bosquejo Fest">
+            </div>
+            <div class="product-info">
+              <div class="product-title">GENERAL</div>
+              <div class="product-price">25€</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="hojas" aria-hidden="true"></div>
+</body>
+</html>
