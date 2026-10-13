@@ -92,13 +92,30 @@
       z-index: 2;
       transition: opacity 0.35s ease-out;
     }
-    
-    .card .logo-estatico {
+
+    .logo-container {
+      position: relative;
       width: min(44vw, 560px);
-      height: auto;
-      display: block;
       margin-top: -4vh;
       margin-left: -1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .logo-container img.logo-estatico {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.90;
+    }
+
+    .logo-container video.logo-animado {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
       opacity: 0.90;
     }
 
@@ -135,225 +152,3 @@
     .card-scroll-area::-webkit-scrollbar-thumb {
       background: #C5B59D;
       border-radius: 10px;
-    }
-
-    .card-scroll-area::-webkit-scrollbar-thumb:hover {
-      background: #b09e86;
-    }
-
-    /* Contenedor interno ampliado */
-    .scroll-inner-content {
-      position: relative;
-      width: 100%;
-      height: 480vh;
-      pointer-events: none;
-    }
-
-    /* Elementos de galería y textos del manifiesto */
-    .gallery-item {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      pointer-events: auto;
-      width: 340px;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      display: block;
-    }
-
-    .manifesto-text {
-      position: absolute;
-      width: 320px;
-      font-family: 'Roboto', system-ui, sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 1.15rem;
-      line-height: 1.5;
-      color: var(--corteza);
-      opacity: 0.9;
-      pointer-events: auto;
-    }
-
-    /* Posicionamiento cruzado de imágenes y textos */
-    .item-1 { top: 75vh; left: 8vw; }
-    .text-1  { top: 90vh; right: 12vw; }
-
-    .item-2 { top: 175vh; right: 8vw; }
-    .text-2  { top: 190vh; left: 12vw; }
-
-    .item-3 { top: 275vh; left: 8vw; }
-    .text-3  { top: 290vh; right: 12vw; }
-
-    .item-4 { top: 375vh; right: 8vw; }
-    .text-4  { top: 390vh; left: 12vw; }
-
-    /* Remate final inferior con difuminado (fade-in) */
-    .final-section {
-      position: absolute;
-      top: 455vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-      pointer-events: auto;
-      padding: 0 2rem;
-      opacity: 0;
-      transform: translate(-50%, 20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .final-section.visible {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    .final-title {
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(1.4rem, 2.2vw, 2rem);
-      color: var(--corteza);
-    }
-
-    /* REGLA DE MÓVIL */
-    @media (max-width: 760px) {
-      .nav a { font-size: 1rem; padding: .2rem .25rem; }
-      .nav li + li::before { margin-right: 0; }
-      main { padding: 4.5rem 5% 7%; }
-      
-      .card .logo-estatico { width: 72vw; margin-left: -0.6rem; }
-      
-      .gallery-item { width: 230px; }
-      .manifesto-text { width: 250px; font-size: 1rem; }
-
-      .item-1 { left: 4vw; top: 65vh; }
-      .text-1  { right: 4vw; top: 98vh; }
-
-      .item-2 { right: 4vw; top: 135vh; }
-      .text-2  { left: 4vw; top: 168vh; }
-
-      .item-3 { left: 4vw; top: 205vh; }
-      .text-3  { right: 4vw; top: 238vh; }
-
-      .item-4 { right: 4vw; top: 275vh; }
-      .text-4  { left: 4vw; top: 308vh; }
-
-      .final-section { top: 360vh; }
-      .scroll-inner-content { height: 420vh; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card { animation: none; }
-      .hojas { display: none; }
-      .final-section { opacity: 1; transform: translate(-50%, 0); }
-    }
-  </style>
-</head>
-<body>
-  <div class="bg" role="presentation"></div>
-
-  <header class="nav">
-    <a href="index.html" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
-    <nav aria-label="Principal">
-      <ul>
-        <li><a href="tienda.html">Tienda</a></li>
-        <li><a href="index.html" aria-current="page">El festival</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="card">
-      
-      <!-- Cabecera fija con el logotipo estático y subtítulo -->
-      <div class="card-header" id="cardHeader">
-        <h1 style="all:unset">
-          <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
-        </h1>
-        <p class="lema">Festival de la moda en proceso.</p>
-      </div>
-
-      <!-- Área con scroll interno -->
-      <div class="card-scroll-area" id="scrollArea">
-        <div class="scroll-inner-content">
-          
-          <!-- Foto 1 y texto 1 -->
-          <div class="gallery-item item-1">
-            <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
-          </div>
-          <div class="manifesto-text text-1">
-            Todo lo que hoy existe, un día fue solo un trazo.
-          </div>
-
-          <!-- Foto 2 y texto 2 -->
-          <div class="gallery-item item-2">
-            <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
-          </div>
-          <div class="manifesto-text text-2">
-            Miles de ideas brillantes nunca llegan a mostrarse. No porque falten, sino porque nadie las considera suficientes.
-          </div>
-
-          <!-- Foto 3 y texto 3 -->
-          <div class="gallery-item item-3">
-            <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
-          </div>
-          <div class="manifesto-text text-3">
-            Mientras tanto, el mundo sigue celebrando solo lo terminado.
-          </div>
-
-          <!-- Foto 4 y texto 4 -->
-          <div class="gallery-item item-4">
-            <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
-          </div>
-          <div class="manifesto-text text-4">
-            Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
-          </div>
-
-          <!-- Remate final con animación de aparición -->
-          <div class="final-section" id="finalSection">
-            <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-  </main>
-
-  <div class="hojas" aria-hidden="true"></div>
-
-  <script>
-    const scrollArea = document.getElementById('scrollArea');
-    const cardHeader = document.getElementById('cardHeader');
-    const finalSection = document.getElementById('finalSection');
-
-    if (scrollArea && cardHeader && finalSection) {
-      scrollArea.addEventListener('scroll', () => {
-        const scrollTop = scrollArea.scrollTop;
-        
-        // Desvanecer el encabezado suavemente al empezar a bajar
-        let opacity = 1 - (scrollTop / 120);
-        if (opacity < 0) opacity = 0;
-        cardHeader.style.opacity = opacity;
-
-        // Mostrar la sección final al llegar abajo del todo
-        const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 150;
-        if (scrollTop >= scrollThreshold) {
-          finalSection.classList.add('visible');
-        } else {
-          finalSection.classList.remove('visible');
-        }
-      });
-    }
-  </script>
-</body>
-</html>
