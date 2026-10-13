@@ -7,7 +7,7 @@
   <meta name="description" content="Antes de existir, todo es bosquejo. Festival de moda que celebra el proceso de crear.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --verde: #899C75;
@@ -30,7 +30,6 @@
       color: var(--corteza);
     }
 
-    /* Fondo fotográfico desenfocado fijo */
     .bg {
       position: fixed; inset: -4%;
       background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
@@ -38,7 +37,6 @@
       z-index: 0;
     }
 
-    /* Menú superior fijo */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 40;
       display: flex; align-items: center; justify-content: space-between;
@@ -56,7 +54,6 @@
     }
     .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
 
-    /* Sombra de hojas: GIF animado fijo */
     .hojas {
       position: fixed; inset: 0; z-index: 30;
       pointer-events: none;
@@ -65,7 +62,6 @@
       opacity: .6;
     }
 
-    /* Tarjeta central fija */
     main {
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
@@ -80,7 +76,6 @@
       animation: entra 1.6s ease both;
     }
 
-    /* Cabecera fija con logo y subtítulo */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -100,21 +95,13 @@
       align-items: center;
     }
 
-    /* Por defecto en escritorio se muestra el vídeo */
     .logo-box video {
-      width: 100%;
-      height: auto;
-      display: block;
-      opacity: 0.95;
+      width: 100%; height: auto; display: block; opacity: 0.95;
     }
     .logo-box img.logo-estatico {
-      display: none;
-      width: 100%;
-      height: auto;
-      opacity: 0.95;
+      display: none; width: 100%; height: auto; opacity: 0.95;
     }
 
-    /* Subtítulo con retraso de fundido inicial */
     .lema {
       font-style: italic; font-weight: 300;
       font-size: clamp(1.1rem, 1.5vw, 1.5rem);
@@ -131,74 +118,51 @@
 
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: #EBDFCC !important;
-      overflow-y: auto;
-      overflow-x: hidden;
-      z-index: 5;
-      padding-bottom: 8rem;
-      scrollbar-width: thin;
-      scrollbar-color: #C5B59D transparent;
+      overflow-y: auto; overflow-x: hidden;
+      z-index: 5; padding-bottom: 8rem;
+      scrollbar-width: thin; scrollbar-color: #C5B59D transparent;
     }
 
     .scroll-inner-content {
-      position: relative;
-      width: 100%;
-      height: 410vh;
-      background: #EBDFCC !important;
-      pointer-events: none;
+      position: relative; width: 100%; height: 410vh;
+      background: #EBDFCC !important; pointer-events: none;
     }
 
-    /* Fotos y textos con transición de aparición y desaparición */
     .gallery-item, .manifesto-text {
       position: absolute;
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 0; transform: translateY(30px);
       transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: auto;
     }
 
     .gallery-item.visible, .manifesto-text.visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 1; transform: translateY(0);
     }
 
     .gallery-item.fade-out, .manifesto-text.fade-out {
-      opacity: 0;
-      transform: translateY(-20px);
+      opacity: 0; transform: translateY(-20px);
     }
 
     .gallery-item {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      width: 340px;
+      display: flex; flex-direction: column; align-items: flex-start; width: 340px;
     }
-
     .gallery-item img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      display: block;
+      width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15); display: block;
     }
 
     .manifesto-text {
       width: 320px;
       font-family: 'Roboto', system-ui, sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: 1.15rem;
-      line-height: 1.5;
-      color: var(--corteza);
+      font-style: italic; font-weight: 300;
+      font-size: 1.15rem; line-height: 1.5; color: var(--corteza);
     }
+    .manifesto-text strong { font-weight: 500; }
 
-    /* Posiciones equilibradas de la galería */
     .item-1 { top: 70vh; left: 8vw; }
     .text-1  { top: 82vh; right: 12vw; }
 
@@ -211,58 +175,35 @@
     .item-4 { top: 310vh; right: 8vw; }
     .text-4  { top: 322vh; left: 12vw; }
 
-    /* Sección final con la frase y los datos del evento */
     .final-section {
-      position: absolute;
-      top: 380vh;
-      left: 50%;
+      position: absolute; top: 380vh; left: 50%;
       transform: translateX(-50%) translateY(30px);
-      width: 100%;
-      max-width: 700px;
-      text-align: center;
-      pointer-events: auto;
-      padding: 0 2rem;
-      opacity: 0;
+      width: 100%; max-width: 700px; text-align: center;
+      pointer-events: auto; padding: 0 2rem; opacity: 0;
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-
-    .final-section.visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    .final-section.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     .final-title {
-      font-style: italic;
-      font-weight: 300;
+      font-style: italic; font-weight: 300;
       font-size: clamp(1.3rem, 2vw, 1.8rem);
-      color: var(--corteza);
-      margin-bottom: 1.8rem;
+      color: var(--corteza); margin-bottom: 1.8rem;
     }
+    .final-title strong { font-weight: 500; }
 
     .event-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
       font-family: 'Roboto', system-ui, sans-serif;
-      font-style: normal;
-      font-weight: 400;
+      font-style: normal; font-weight: 400;
       font-size: clamp(0.9rem, 1.2vw, 1.15rem);
-      letter-spacing: 0.08em;
-      color: var(--corteza);
-      text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--corteza); text-transform: uppercase;
     }
+    .event-info .fest-name { font-weight: 500; margin-bottom: 0.2rem; }
 
-    .event-info .fest-name {
-      font-weight: 500;
-      margin-bottom: 0.2rem;
-    }
-
-    /* REGLA ESTRICTAS PARA MÓVILES: Ocultar por completo el vídeo y mostrar la imagen estática */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       main { padding: 4.5rem 5% 7%; }
       .logo-box { width: 72vw; }
-      
       .logo-box video { display: none !important; }
       .logo-box img.logo-estatico { display: block !important; }
 
@@ -271,13 +212,10 @@
 
       .item-1 { left: 4vw; top: 62vh; }
       .text-1  { right: 4vw; top: 90vh; }
-
       .item-2 { right: 4vw; top: 125vh; }
       .text-2  { left: 4vw; top: 153vh; }
-
       .item-3 { left: 4vw; top: 188vh; }
       .text-3  { right: 4vw; top: 216vh; }
-
       .item-4 { right: 4vw; top: 251vh; }
       .text-4  { left: 4vw; top: 279vh; }
 
@@ -295,16 +233,13 @@
       <ul>
         <li><a href="tienda.html">Tienda</a></li>
         <li><a href="index.html" aria-current="page">El festival</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="nosotros-contacto.html">Nosotros / Contacto</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <section class="card">
-      
-      <!-- Cabecera con vídeo para escritorio e imagen estática pura para móvil -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
           <div class="logo-box">
@@ -315,10 +250,9 @@
             <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
           </div>
         </h1>
-        <p class="lema">Festival de la moda en proceso.</p>
+        <p class="lema">Festival de la <strong>moda en proceso</strong>.</p>
       </div>
 
-      <!-- Área de scroll -->
       <div class="card-scroll-area" id="scrollArea">
         <div class="scroll-inner-content">
           
@@ -326,51 +260,48 @@
             <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
           </div>
           <div class="manifesto-text text-1 fade-el">
-            Todo lo que hoy existe, un día fue solo un trazo.
+            Todo lo que hoy <strong>existe</strong>, un día fue solo un <strong>trazo</strong>.
           </div>
 
           <div class="gallery-item item-2 fade-el">
             <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
           </div>
           <div class="manifesto-text text-2 fade-el">
-            Miles de ideas brillantes nunca llegan a mostrarse. No porque falten, sino porque nadie las considera suficientes.
+            Miles de <strong>ideas brillantes</strong> nunca llegan a mostrarse. No porque falten, sino porque nadie las considera <strong>suficientes</strong>.
           </div>
 
           <div class="gallery-item item-3 fade-el">
             <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
           </div>
           <div class="manifesto-text text-3 fade-el">
-            Mientras tanto, el mundo sigue celebrando solo lo terminado.
+            Mientras tanto, el mundo sigue celebrando solo lo <strong>terminado</strong>.
           </div>
 
           <div class="gallery-item item-4 fade-el last-gallery-item">
             <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
           </div>
           <div class="manifesto-text text-4 fade-el">
-            Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
+            <strong>Bosquejo</strong> nace para romper esa espera. Aquí, el trazo se queda como es: <strong>inacabado</strong>, en <strong>construcción</strong>, y se le da valor.
           </div>
 
-          <!-- Sección final -->
           <div class="final-section" id="finalSection">
-            <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
+            <h2 class="final-title">Antes de existir, todo es <strong>bosquejo</strong>.</h2>
             <div class="event-info">
-              <div class="fest-name">BOSQUEJO FEST</div>
-              <div>BOSQUE DE MONTSENY, BARCELONA</div>
-              <div>DEL 18 AL 19 DE ABRIL</div>
-              <div>2027</div>
+              <div class="fest-name"><strong>BOSQUEJO FEST</strong></div>
+              <div><strong>BOSQUE DE MONTSENY, BARCELONA</strong></div>
+              <div><strong>DEL 18 AL 19 DE ABRIL</strong></div>
+              <div><strong>2027</strong></div>
             </div>
           </div>
 
         </div>
       </div>
-
     </section>
   </main>
 
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
-    // En móviles eliminamos el elemento video por completo para evitar cuadros negros de carga
     if (window.innerWidth <= 760) {
       const v = document.getElementById('logoVideo');
       if (v) v.remove();

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Bosquejo Fest - Tienda</title>
-  <meta name="description" content="Compra tus entradas para el Bosquejo Fest.">
+  <title>Tienda - Bosquejo Fest</title>
+  <meta name="description" content="Tienda oficial de Bosquejo Fest. Merchandising y piezas en proceso.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --verde: #899C75;
@@ -22,7 +22,7 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background: #60281B;
+      background: var(--corteza);
     }
     body {
       font-family: 'Roboto', system-ui, sans-serif;
@@ -30,7 +30,6 @@
       color: var(--corteza);
     }
 
-    /* Fondo fotográfico desenfocado fijo */
     .bg {
       position: fixed; inset: -4%;
       background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
@@ -38,7 +37,6 @@
       z-index: 0;
     }
 
-    /* Menú superior fijo */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 40;
       display: flex; align-items: center; justify-content: space-between;
@@ -55,9 +53,7 @@
       padding: .2rem .5rem; transition: opacity .25s;
     }
     .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
-    .nav a:focus-visible { outline: 1px solid var(--rojo); outline-offset: 2px; }
 
-    /* Sombra de hojas: GIF animado fijo en primer plano */
     .hojas {
       position: fixed; inset: 0; z-index: 30;
       pointer-events: none;
@@ -66,210 +62,94 @@
       opacity: .6;
     }
 
-    /* Tarjeta central fija en pantalla */
     main {
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
       padding: 5.5rem 9% 6%;
     }
+    .card {
+      position: relative; width: 100%; height: 100%;
+      background: #EBDFCC !important;
+      border-radius: .6rem;
+      display: flex; flex-direction: column; align-items: center;
+      overflow: hidden;
+      animation: entra 1.6s ease both;
+    }
 
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Logo superior izquierdo dentro de la tarjeta */
-    .card-brand {
-      position: absolute;
-      top: 2.2rem;
-      left: 3rem;
-      z-index: 10;
-      width: 140px;
-      height: auto;
-      display: block;
-      opacity: 0.90;
-    }
-
-    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      z-index: 5;
-      padding: 7rem 4rem 4rem 4rem;
-
-      scrollbar-width: thin;
-      scrollbar-color: #C5B59D transparent;
+      width: 100%; height: 100%;
+      background: #EBDFCC !important;
+      overflow-y: auto; overflow-x: hidden;
+      z-index: 5; padding: 4rem 6%;
+      scrollbar-width: thin; scrollbar-color: #C5B59D transparent;
     }
 
-    .card-scroll-area::-webkit-scrollbar {
-      width: 8px;
+    .tienda-content {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 2rem;
     }
 
-    .card-scroll-area::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .card-scroll-area::-webkit-scrollbar-thumb {
-      background: #C5B59D;
-      border-radius: 10px;
-    }
-
-    .card-scroll-area::-webkit-scrollbar-thumb:hover {
-      background: #b09e86;
-    }
-
-    /* Contenedor de la tienda (Grid para los productos) */
-    .store-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 5vw;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .product-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 360px;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      transition: transform .35s cubic-bezier(.25,1,.5,1);
-    }
-
-    .product-card-bg {
-      background: transparent;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .product-item img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      border-radius: 0px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      display: block;
-      transition: transform .4s ease, box-shadow .4s ease;
-    }
-
-    /* EFECTO HOVER: Elevación y leve aumento de tamaño al pasar el cursor */
-    .product-item:hover {
-      transform: translateY(-8px) scale(1.02);
-    }
-
-    .product-item:hover img {
-      transform: scale(1.03);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.22);
-    }
-
-    .product-info {
-      text-align: center;
-      margin-top: 1.2rem;
-    }
-
-    .product-title {
+    .tienda-title {
       font-family: 'Roboto', system-ui, sans-serif;
-      font-weight: 400;
-      font-size: 1.05rem;
-      letter-spacing: 0.05em;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(2rem, 3vw, 2.8rem);
       color: var(--corteza);
-      text-transform: uppercase;
     }
+    .tienda-title strong { font-weight: 500; }
 
-    .product-price {
-      font-family: 'Roboto', system-ui, sans-serif;
-      font-weight: 300;
-      font-size: 1rem;
+    .tienda-desc {
+      font-style: italic; font-weight: 300;
+      font-size: 1.15rem; line-height: 1.6;
+      color: var(--corteza); opacity: 0.9;
+    }
+    .tienda-desc strong { font-weight: 500; }
+
+    .coming-soon {
+      margin-top: 3rem; padding: 2.5rem;
+      background: rgba(96, 40, 27, 0.04);
+      border-left: 3px solid var(--rojo);
+      font-style: italic; font-weight: 300; font-size: 1.2rem;
       color: var(--corteza);
-      margin-top: 0.2rem;
     }
+    .coming-soon strong { font-weight: 500; }
 
-    @media (max-width: 900px) {
-      .store-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-      }
-      .card-scroll-area {
-        padding: 6rem 1.5rem 3rem 1.5rem;
-      }
-      .card-brand {
-        top: 1.5rem;
-        left: 1.5rem;
-        width: 110px;
-      }
-      .product-item {
-        width: 100%;
-        max-width: 300px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hojas { display: none; }
-      .product-item, .product-card-bg, .product-item img { transition: none; transform: none; }
+    @media (max-width: 760px) {
+      .nav a { font-size: 1rem; padding: .2rem .25rem; }
+      main { padding: 4.5rem 5% 7%; }
+      .tienda-content { padding-top: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="bg" role="presentation"></div>
 
-  <!-- Menú superior -->
   <header class="nav">
     <a href="index.html" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
     <nav aria-label="Principal">
       <ul>
         <li><a href="tienda.html" aria-current="page">Tienda</a></li>
         <li><a href="index.html">El festival</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="nosotros-contacto.html">Nosotros / Contacto</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <!-- Tarjeta con estilos en línea directos para ignorar cualquier caché o conflicto -->
-    <section style="position: relative; width: 100%; height: 100%; background: #EBDFCC; border-radius: .6rem; display: flex; flex-direction: column; align-items: center; overflow: hidden; animation: entra 1.6s ease both;">
-      
-      <!-- Logo estático superior izquierdo -->
-      <img src="assets/bosquejo-logo-estatico.png" class="card-brand" alt="Bosquejo">
-
-      <!-- Área de scroll interno con los productos -->
+    <section class="card">
       <div class="card-scroll-area">
-        <div class="store-container">
-          
-          <!-- Producto 1: Estudiante -->
-          <div class="product-item">
-            <div class="product-card-bg">
-              <img src="assets/tienda-1.jpg" alt="Entrada Estudiante Bosquejo Fest">
-            </div>
-            <div class="product-info">
-              <div class="product-title">ESTUDIANTE</div>
-              <div class="product-price">15€</div>
-            </div>
+        <div class="tienda-content">
+          <h1 class="tienda-title"><strong>Tienda oficial</strong></h1>
+          <p class="tienda-desc">
+            Pronto habilitaremos el espacio para adquirir las <strong>piezas en proceso</strong>, publicaciones editoriales y el <strong>merchandising exclusivo</strong> de Bosquejo Fest.
+          </p>
+          <div class="coming-soon">
+            La <strong>colección inaugural</strong> estará disponible próximamente de forma limitada. Mantente atento a nuestros canales.
           </div>
-
-          <!-- Producto 2: General -->
-          <div class="product-item">
-            <div class="product-card-bg">
-              <img src="assets/tienda-2.jpg" alt="Entrada General Bosquejo Fest">
-            </div>
-            <div class="product-info">
-              <div class="product-title">GENERAL</div>
-              <div class="product-price">25€</div>
-            </div>
-          </div>
-
         </div>
       </div>
-
     </section>
   </main>
 
