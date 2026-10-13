@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bosquejo Fest</title>
+  <meta name="description" content="Antes de existir, todo es bosquejo. Festival de moda que celebra el proceso de crear.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde: #899C75;
+      --rojo: #D94726;
+      --azul: #B2CFDE;
+      --corteza: #60281B;
+      --crema: #FFF9E5;
+      --arena: #EBDFCC;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Roboto', system-ui, sans-serif;
+      font-weight: 300;
+      color: var(--corteza);
+      background: var(--corteza);
+      overflow: hidden;
+    }
+
+    /* Fondo fotográfico desenfocado */
+    .bg {
+      position: fixed; inset: -4%;
+      background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
+      filter: blur(14px) saturate(.9);
+      z-index: 0;
+    }
+
+    /* Menú */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .5rem 1rem;
+      padding-top: calc(.5rem + env(safe-area-inset-top, 0px));
+      background: var(--arena);
+    }
+    .nav img { height: 1.7rem; display: block; }
+    .nav ul { list-style: none; display: flex; gap: .2rem; align-items: center; }
+    .nav li + li::before { content: "/"; color: var(--corteza); opacity: .7; margin-right: .2rem; font-style: italic; }
+    .nav a {
+      font-style: italic; font-weight: 300; font-size: 1.3rem;
+      color: var(--corteza); opacity: .38; text-decoration: none;
+      padding: .2rem .5rem; transition: opacity .25s;
+    }
+    .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
+    .nav a:focus-visible { outline: 1px solid var(--rojo); outline-offset: 2px; }
+
+    /* Tarjeta central */
+    main {
+      position: fixed; inset: 0; z-index: 5;
+      display: grid; place-items: center;
+      padding: 5.5rem 9% 6%;
+    }
+    .card {
+      position: relative; width: 100%; height: 100%;
+      background: var(--arena);
+      border-radius: .6rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: clamp(2rem, 9vh, 6rem);
+      overflow: hidden;
+      animation: entra 1.6s ease both;
+    }
+    .card img.logo { width: min(44vw, 560px); height: auto; display: block; margin-top: -4vh; }
+    .lema {
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+      color: #1a1a1a;
+      text-align: center; padding: 0 1.5rem;
+    }
+    .lema b { font-weight: 400; font-style: italic; color: #000; }
+    @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* Sombra de hojas: GIF animado en la capa frontal (no bloquea clics).
+       Con fondo blanco + multiply, el blanco desaparece y solo se ve la sombra. */
+    .hojas {
+      position: fixed; inset: 0; z-index: 30;
+      pointer-events: none;
+      background: url('assets/hojas.gif') center/cover no-repeat;
+      mix-blend-mode: multiply;
+      opacity: .6; /* ajusta la intensidad de la sombra */
+    }
+
+    @media (max-width: 760px) {
+      .nav a { font-size: 1rem; padding: .2rem .25rem; }
+      .nav li + li::before { margin-right: 0; }
+      main { padding: 4.5rem 5% 7%; }
+      .card img.logo { width: 72vw; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; }
+      .hojas { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" role="presentation"></div>
+
+  <header class="nav">
+    <a href="./" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="#tienda">Tienda</a></li>
+        <li><a href="#festival" aria-current="page">El festival</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1 style="all:unset"><img class="logo" src="assets/bosquejo-logo.png" alt="Bosquejo"></h1>
+      <p class="lema">"Antes de existir, todo es <b>bosquejo.</b>"</p>
+    </section>
+  </main>
+
+  <!-- Textura: sombra de hojas (GIF) -->
+  <div class="hojas" aria-hidden="true"></div>
+</body>
+</html>

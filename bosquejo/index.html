@@ -22,12 +22,12 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background: var(--corteza);
     }
     body {
       font-family: 'Roboto', system-ui, sans-serif;
       font-weight: 300;
       color: var(--corteza);
+      background: var(--corteza);
     }
 
     /* Fondo fotográfico desenfocado fijo */
@@ -66,7 +66,7 @@
       opacity: .6;
     }
 
-    /* Tarjeta central fija en pantalla con color arena forzado */
+    /* Tarjeta central fija en pantalla */
     main {
       position: fixed; inset: 0; z-index: 10;
       display: grid; place-items: center;
@@ -74,53 +74,47 @@
     }
     .card {
       position: relative; width: 100%; height: 100%;
-      background-color: #EBDFCC !important;
+      background: var(--arena);
       border-radius: .6rem;
       display: flex; flex-direction: column; align-items: center;
       overflow: hidden;
       animation: entra 1.6s ease both;
     }
 
-    /* Cabecera fija con el logo y el subtítulo */
+    /* Cabecera fija con el logo y lema (desvanece al hacer scroll) */
     .card-header {
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: clamp(1.5rem, 5vh, 3.5rem);
+      gap: clamp(2rem, 9vh, 6rem);
       pointer-events: none;
       z-index: 2;
       transition: opacity 0.35s ease-out;
     }
     
-    /* REGLAS ESTRICTAS DE LOGO: Vídeo para escritorio, PNG para móvil */
-    .card .logo-animado {
+    .card .logo-estatico {
       width: min(44vw, 560px);
       height: auto;
-      display: block !important;
+      display: block;
+      margin-top: -4vh;
       margin-left: -1.2rem;
       opacity: 0.90;
     }
-    .card .logo-estatico {
-      display: none !important;
-    }
 
-    /* Subtítulo bajo el logo */
     .lema {
       font-style: italic; font-weight: 300;
       font-size: clamp(1.1rem, 1.5vw, 1.5rem);
-      color: var(--corteza);
+      color: #1a1a1a;
       text-align: center; padding: 0 1.5rem;
     }
-
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Área con scroll interno dentro de la tarjeta arena */
+    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
       width: 100%;
       height: 100%;
-      background-color: #EBDFCC !important;
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 5;
@@ -130,9 +124,22 @@
       scrollbar-color: #C5B59D transparent;
     }
 
-    .card-scroll-area::-webkit-scrollbar { width: 8px; }
-    .card-scroll-area::-webkit-scrollbar-track { background: transparent; }
-    .card-scroll-area::-webkit-scrollbar-thumb { background: #C5B59D; border-radius: 10px; }
+    .card-scroll-area::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb {
+      background: #C5B59D;
+      border-radius: 10px;
+    }
+
+    .card-scroll-area::-webkit-scrollbar-thumb:hover {
+      background: #b09e86;
+    }
 
     /* Contenedor interno ampliado */
     .scroll-inner-content {
@@ -199,12 +206,13 @@
       pointer-events: auto;
       padding: 0 2rem;
       opacity: 0;
+      transform: translate(-50%, 20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .final-section.visible {
       opacity: 1;
-      transform: translate(-50%, -20px);
+      transform: translate(-50%, 0);
     }
 
     .final-title {
@@ -214,14 +222,13 @@
       color: var(--corteza);
     }
 
-    /* REGLA DE MÓVIL: Ocultar vídeo, mostrar imagen estática PNG */
+    /* REGLA DE MÓVIL */
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
       .nav li + li::before { margin-right: 0; }
       main { padding: 4.5rem 5% 7%; }
       
-      .card .logo-animado { display: none !important; }
-      .card .logo-estatico { display: block !important; width: 72vw; margin-left: -0.6rem; }
+      .card .logo-estatico { width: 72vw; margin-left: -0.6rem; }
       
       .gallery-item { width: 230px; }
       .manifesto-text { width: 250px; font-size: 1rem; }
@@ -267,15 +274,9 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera fija con vídeo (añadido soporte MP4) y subtítulo -->
+      <!-- Cabecera fija con el logotipo estático y subtítulo -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
-          <video class="logo-animado" id="logoVideo" muted playsinline autoplay preload="auto">
-            <source src="assets/bosquejo-logo-escribiendo.mp4" type="video/mp4">
-            <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
-            <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
-            Tu navegador no soporta video HTML5.
-          </video>
           <img src="assets/bosquejo-logo-estatico.png" class="logo-estatico" alt="Bosquejo Fest">
         </h1>
         <p class="lema">Festival de la moda en proceso.</p>
@@ -331,14 +332,6 @@
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
-    const video = document.getElementById('logoVideo');
-    if (video) {
-      video.addEventListener('ended', () => {
-        video.pause();
-        video.currentTime = video.duration;
-      });
-    }
-
     const scrollArea = document.getElementById('scrollArea');
     const cardHeader = document.getElementById('cardHeader');
     const finalSection = document.getElementById('finalSection');
@@ -347,10 +340,12 @@
       scrollArea.addEventListener('scroll', () => {
         const scrollTop = scrollArea.scrollTop;
         
+        // Desvanecer el encabezado suavemente al empezar a bajar
         let opacity = 1 - (scrollTop / 120);
         if (opacity < 0) opacity = 0;
         cardHeader.style.opacity = opacity;
 
+        // Mostrar la sección final al llegar abajo del todo
         const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 150;
         if (scrollTop >= scrollThreshold) {
           finalSection.classList.add('visible');
