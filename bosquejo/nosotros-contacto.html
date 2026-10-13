@@ -42,7 +42,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: .5rem 1rem;
       padding-top: calc(.5rem + env(safe-area-inset-top, 0px));
-      background: #EBDFCC;
+      background: var(--arena);
     }
     .nav img { height: 1.7rem; display: block; }
     .nav ul { list-style: none; display: flex; gap: .2rem; align-items: center; }
@@ -69,7 +69,7 @@
     }
     .card {
       position: relative; width: 100%; height: 100%;
-      background: #EBDFCC !important;
+      background: var(--arena);
       border-radius: .6rem;
       display: flex; flex-direction: column; align-items: center;
       overflow: hidden;
@@ -78,16 +78,27 @@
 
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+    /* Logo superior izquierdo idéntico al de la tienda */
+    .card-brand {
+      position: absolute;
+      top: 2.2rem;
+      left: 3rem;
+      z-index: 10;
+      width: 140px;
+      height: auto;
+      display: block;
+      opacity: 0.90;
+    }
+
     .card-scroll-area {
       position: relative;
       width: 100%; height: 100%;
-      background: #EBDFCC !important;
+      background: var(--arena);
       overflow-y: auto; overflow-x: hidden;
-      z-index: 5; padding: 3.5rem 5%;
+      z-index: 5; padding: 7rem 5% 4rem;
       scrollbar-width: thin; scrollbar-color: #C5B59D transparent;
     }
 
-    /* Maquetación simétrica exacta al diseño Frame 4 (Texto izquierda, Imagen derecha) */
     .about-layout {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -101,22 +112,13 @@
     .about-text-col {
       display: flex;
       flex-direction: column;
-      gap: 1.6rem;
-    }
-
-    .brand-signature {
-      font-family: 'Roboto', system-ui, sans-serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-      color: var(--rojo);
-      margin-bottom: 0.5rem;
+      gap: 1.4rem;
     }
 
     .about-paragraph {
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      font-size: clamp(1rem, 1.25vw, 1.15rem);
       line-height: 1.55;
       color: var(--corteza);
     }
@@ -124,43 +126,58 @@
       font-weight: 500;
     }
 
+    /* Contenedor del carrusel de imágenes en fundido */
     .about-image-col {
       width: 100%;
       display: flex;
       justify-content: center;
     }
 
-    .about-image-col img {
+    .image-slideshow {
+      position: relative;
       width: 100%;
-      height: auto;
       aspect-ratio: 4 / 5;
-      object-fit: cover;
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      display: block;
+      overflow: hidden;
+      border-radius: 4px;
     }
 
-    /* Sección de contacto adicional en la misma vista corporativa */
+    .image-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .image-slideshow img.active {
+      opacity: 1;
+    }
+
+    /* Sección de contacto */
     .contact-section {
       max-width: 1100px;
-      margin: 2rem auto 0;
-      padding-top: 2.5rem;
+      margin: 1.5rem auto 0;
+      padding-top: 2.2rem;
       border-top: 1px solid rgba(96, 40, 27, 0.15);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .contact-title {
       font-style: italic;
       font-weight: 400;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       color: var(--corteza);
     }
 
     .contact-info {
       font-style: italic;
       font-weight: 300;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.6;
       color: var(--corteza);
     }
@@ -175,14 +192,21 @@
         gap: 2.5rem;
       }
       .about-image-col {
-        max-width: 420px;
+        max-width: 380px;
         margin: 0 auto;
+      }
+      .card-scroll-area {
+        padding: 6rem 1.5rem 3rem 1.5rem;
+      }
+      .card-brand {
+        top: 1.5rem;
+        left: 1.5rem;
+        width: 110px;
       }
     }
 
     @media (max-width: 760px) {
       .nav a { font-size: 1rem; padding: .2rem .25rem; }
-      main { padding: 4.5rem 4% 6%; }
     }
   </style>
 </head>
@@ -202,35 +226,42 @@
 
   <main>
     <section class="card">
+      
+      <!-- Logo estático superior izquierdo -->
+      <img src="assets/bosquejo-logo-estatico.png" class="card-brand" alt="Bosquejo">
+
       <div class="card-scroll-area">
         
         <div class="about-layout">
           <div class="about-text-col">
-            <h1 class="brand-signature">Bosquejo</h1>
-            
             <p class="about-paragraph">
-              Un festival para lo que aún está en <strong>proceso</strong>.
+              Un festival para lo que aún está en <strong>proceso</strong>[cite: 2].
             </p>
             
             <p class="about-paragraph">
-              <strong>Bosquejo FEST</strong> nace para romper la <strong>espera</strong>.
+              <strong>Bosquejo FEST</strong> nace para romper la <strong>espera</strong>[cite: 2].
             </p>
             
             <p class="about-paragraph">
-              Reunimos durante dos días a <strong>diseñadores emergentes</strong>, talleres y público en mitad del bosque, para que la moda se vea como empieza: con un <strong>trazo</strong>, un <strong>patrón</strong> y muchos <strong>intentos</strong>.
+              Reunimos durante dos días a <strong>diseñadores emergentes</strong>, talleres y público en mitad del bosque, para que la moda se vea como empieza: con un <strong>trazo</strong>, un <strong>patrón</strong> y muchos <strong>intentos</strong>[cite: 2].
             </p>
             
             <p class="about-paragraph">
-              Aquí no hay pasarela ni <strong>postureo</strong>. Hay mesas de trabajo, telas entre los árboles y gente que enseña lo que está <strong>haciendo</strong>.
+              Aquí no hay pasarela ni <strong>postureo</strong>. Hay mesas de trabajo, telas entre los árboles y gente que enseña lo que está <strong>haciendo</strong>[cite: 2].
             </p>
             
             <p class="about-paragraph">
-              Si creas, este es tu sitio. Si miras, ven a ver cómo se <strong>hace</strong>.
+              Si creas, este es tu sitio. Si miras, ven a ver cómo se <strong>hace</strong>[cite: 2].
             </p>
           </div>
 
+          <!-- Columna con el carrusel de imágenes -->
           <div class="about-image-col">
-            <img src="assets/foto-banderas.jpg" alt="Banderas Bosquejo Fest en el bosque">
+            <div class="image-slideshow" id="slideshow">
+              <img src="assets/nosotros-1.jpg" alt="Bosquejo Fest ambiente 1" class="active">
+              <img src="assets/nosotros-2.jpg" alt="Bosquejo Fest ambiente 2">
+              <img src="assets/nosotros-3.jpg" alt="Bosquejo Fest ambiente 3">
+            </div>
           </div>
         </div>
 
@@ -246,5 +277,19 @@
   </main>
 
   <div class="hojas" aria-hidden="true"></div>
+
+  <script>
+    // Sistema del carrusel: cambia de foto cada 4 segundos con fundido suave
+    const slides = document.querySelectorAll('#slideshow img');
+    let currentSlide = 0;
+
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 4000);
+    }
+  </script>
 </body>
 </html>
