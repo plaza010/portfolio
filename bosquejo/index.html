@@ -7,8 +7,7 @@
   <meta name="description" content="Antes de existir, todo es bosquejo. Festival de moda que celebra el proceso de crear.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --verde: #899C75;
@@ -18,409 +17,287 @@
       --crema: #FFF9E5;
       --arena: #EBDFCC;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     html, body {
       height: 100%;
-      width: 100%;
       overflow: hidden;
-      background-color: var(--corteza);
-      font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+      background: var(--corteza);
+    }
+    body {
+      font-family: 'Roboto', system-ui, sans-serif;
       font-weight: 300;
       color: var(--corteza);
     }
 
-    /* Background blur effect */
+    /* Fondo fotográfico desenfocado fijo */
     .bg {
-      position: fixed;
-      inset: -5%;
-      background: linear-gradient(135deg, #2b120c 0%, #60281B 50%, #3e1911 100%);
-      filter: blur(12px);
+      position: fixed; inset: -4%;
+      background: url('assets/bosquejo-bg.jpg') center/cover no-repeat;
+      filter: blur(14px) saturate(.9);
       z-index: 0;
     }
 
-    /* Ambient leaf texture overlay */
-    .hojas-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 35;
-      pointer-events: none;
-      background: radial-gradient(circle at 50% 30%, rgba(255, 249, 229, 0.08) 0%, transparent 70%),
-                  linear-gradient(45deg, rgba(96, 40, 27, 0.2) 0%, transparent 100%);
-      mix-blend-mode: multiply;
-      opacity: 0.7;
-    }
-
-    /* Top Navigation */
+    /* Menú superior fijo */
     .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 1.5rem;
-      padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .5rem 1rem;
+      padding-top: calc(.5rem + env(safe-area-inset-top, 0px));
       background: #EBDFCC;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
-
-    .nav-brand {
-      font-family: 'Cinzel', serif;
-      font-weight: 600;
-      font-size: 1.5rem;
-      color: var(--corteza);
-      text-decoration: none;
-      letter-spacing: 1px;
-    }
-
-    .nav ul {
-      list-style: none;
-      display: flex;
-      gap: 0.3rem;
-      align-items: center;
-    }
-
-    .nav li + li::before {
-      content: "/";
-      color: var(--corteza);
-      opacity: 0.6;
-      margin-right: 0.3rem;
-      font-style: italic;
-    }
-
+    .nav img { height: 1.7rem; display: block; }
+    .nav ul { list-style: none; display: flex; gap: .2rem; align-items: center; }
+    .nav li + li::before { content: "/"; color: var(--corteza); opacity: .7; margin-right: .2rem; font-style: italic; }
     .nav a {
-      font-style: italic;
-      font-weight: 300;
-      font-size: 1.1rem;
-      color: var(--corteza);
-      opacity: 0.55;
-      text-decoration: none;
-      padding: 0.2rem 0.4rem;
-      transition: opacity 0.25s ease;
+      font-style: italic; font-weight: 300; font-size: 1.3rem;
+      color: var(--corteza); opacity: .38; text-decoration: none;
+      padding: .2rem .5rem; transition: opacity .25s;
+    }
+    .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
+
+    /* Sombra de hojas: GIF animado fijo */
+    .hojas {
+      position: fixed; inset: 0; z-index: 30;
+      pointer-events: none;
+      background: url('assets/hojas.gif') center/cover no-repeat;
+      mix-blend-mode: multiply;
+      opacity: .6;
     }
 
-    .nav a:hover, .nav a[aria-current="page"] {
-      opacity: 1;
-    }
-
-    /* Main Container & Sand Card */
+    /* Tarjeta central fija */
     main {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: grid;
-      place-items: center;
-      padding: 5rem 6% 4%;
+      position: fixed; inset: 0; z-index: 10;
+      display: grid; place-items: center;
+      padding: 5.5rem 9% 6%;
     }
-
     .card {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #EBDFCC !important;
-      border-radius: 0.8rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      position: relative; width: 100%; height: 100%;
+      background: #EBDFCC !important;
+      border-radius: .6rem;
+      display: flex; flex-direction: column; align-items: center;
       overflow: hidden;
-      animation: cardEntrance 1.2s ease-out both;
+      animation: entra 1.6s ease both;
     }
 
-    @keyframes cardEntrance {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Fixed Card Header */
+    /* Cabecera fija con logo y subtítulo */
     .card-header {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.8rem;
       pointer-events: none;
       z-index: 20;
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.35s ease-out;
     }
 
-    .logo-container {
-      width: min(80vw, 520px);
+    .logo-box {
+      position: relative;
+      width: min(44vw, 520px);
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
-    /* Animated SVG Handwritten Logo */
-    .logo-svg {
+    .logo-box img, .logo-box video {
       width: 100%;
       height: auto;
-      max-height: 180px;
-    }
-
-    .logo-path {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: drawLogo 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    @keyframes drawLogo {
-      to { stroke-dashoffset: 0; }
+      display: block;
+      opacity: 0.95;
     }
 
     .lema {
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1.1rem, 1.5vw, 1.5rem);
       color: var(--corteza);
-      text-align: center;
-      padding: 0 1.5rem;
-      opacity: 0;
-      animation: fadeInText 1.5s ease forward 2s;
-      animation-fill-mode: forwards;
-      letter-spacing: 0.5px;
+      text-align: center; padding: 0 1.5rem;
     }
 
-    @keyframes fadeInText {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 0.95; transform: translateY(0); }
-    }
+    @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* Scroll Area */
+    /* Área con scroll interno dentro de la tarjeta crema */
     .card-scroll-area {
       position: relative;
       width: 100%;
       height: 100%;
-      background-color: #EBDFCC !important;
+      background: #EBDFCC !important;
       overflow-y: auto;
       overflow-x: hidden;
-      z-index: 10;
+      z-index: 5;
+      padding-bottom: 12rem;
       scrollbar-width: thin;
       scrollbar-color: #C5B59D transparent;
-    }
-
-    .card-scroll-area::-webkit-scrollbar {
-      width: 8px;
-    }
-    .card-scroll-area::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .card-scroll-area::-webkit-scrollbar-thumb {
-      background: #C5B59D;
-      border-radius: 10px;
     }
 
     .scroll-inner-content {
       position: relative;
       width: 100%;
-      height: 440vh;
-      background-color: #EBDFCC !important;
+      height: 480vh;
+      background: #EBDFCC !important;
+      pointer-events: none;
     }
 
-    /* Gallery Items & Manifesto Sections */
+    /* Fotos y textos */
     .gallery-item {
       position: absolute;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      width: clamp(260px, 28vw, 380px);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(96, 40, 27, 0.18);
-      transition: transform 0.5s ease, opacity 0.5s ease;
-      background: #FFF9E5;
+      pointer-events: auto;
+      width: 340px;
     }
 
-    .gallery-item svg {
+    .gallery-item img {
       width: 100%;
       height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
       display: block;
     }
 
     .manifesto-text {
       position: absolute;
-      width: clamp(260px, 26vw, 360px);
+      width: 320px;
+      font-family: 'Roboto', system-ui, sans-serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(1.05rem, 1.4vw, 1.35rem);
-      line-height: 1.6;
+      font-size: 1.15rem;
+      line-height: 1.5;
       color: var(--corteza);
       opacity: 0.9;
-      padding: 1.2rem;
-      background: rgba(255, 249, 229, 0.6);
-      backdrop-filter: blur(4px);
-      border-left: 3px solid var(--rojo);
-      border-radius: 0 6px 6px 0;
+      pointer-events: auto;
     }
 
-    .item-1 { top: 70vh; left: 8vw; }
-    .text-1 { top: 88vh; right: 10vw; }
+    /* Posiciones */
+    .item-1 { top: 75vh; left: 8vw; }
+    .text-1  { top: 90vh; right: 12vw; }
 
-    .item-2 { top: 160vh; right: 8vw; }
-    .text-2 { top: 178vh; left: 10vw; }
+    .item-2 { top: 175vh; right: 8vw; }
+    .text-2  { top: 190vh; left: 12vw; }
 
-    .item-3 { top: 250vh; left: 8vw; }
-    .text-3 { top: 268vh; right: 10vw; }
+    .item-3 { top: 275vh; left: 8vw; }
+    .text-3  { top: 290vh; right: 12vw; }
 
-    .item-4 { top: 340vh; right: 8vw; }
-    .text-4 { top: 358vh; left: 10vw; }
+    .item-4 { top: 375vh; right: 8vw; }
+    .text-4  { top: 390vh; left: 12vw; }
 
-    /* Bottom Final Section */
+    /* Frase final */
     .final-section {
       position: absolute;
-      top: 410vh;
+      top: 455vh;
       left: 50%;
-      transform: translate(-50%, 20px);
-      width: 90%;
-      max-width: 650px;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
       text-align: center;
-      padding: 2.5rem 1.5rem;
+      pointer-events: auto;
+      padding: 0 2rem;
       opacity: 0;
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .final-section.visible {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, -20px);
     }
 
     .final-title {
-      font-family: 'Cinzel', serif;
       font-style: italic;
-      font-weight: 400;
-      font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
       color: var(--corteza);
-      letter-spacing: 1px;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      main { padding: 4.2rem 3% 3%; }
-      .nav a { font-size: 0.95rem; }
-      
-      .gallery-item { width: 260px; }
-      .manifesto-text { width: 84vw; left: 8vw !important; right: auto !important; font-size: 1rem; }
+    @media (max-width: 760px) {
+      .nav a { font-size: 1rem; padding: .2rem .25rem; }
+      main { padding: 4.5rem 5% 7%; }
+      .logo-box { width: 72vw; }
+      .gallery-item { width: 230px; }
+      .manifesto-text { width: 250px; font-size: 1rem; }
 
-      .item-1 { left: 8vw; top: 65vh; }
-      .text-1 { top: 102vh; }
+      .item-1 { left: 4vw; top: 65vh; }
+      .text-1  { right: 4vw; top: 98vh; }
 
-      .item-2 { right: 8vw; top: 145vh; }
-      .text-2 { top: 182vh; }
+      .item-2 { right: 4vw; top: 135vh; }
+      .text-2  { left: 4vw; top: 168vh; }
 
-      .item-3 { left: 8vw; top: 225vh; }
-      .text-3 { top: 262vh; }
+      .item-3 { left: 4vw; top: 205vh; }
+      .text-3  { right: 4vw; top: 238vh; }
 
-      .item-4 { right: 8vw; top: 305vh; }
-      .text-4 { top: 342vh; }
+      .item-4 { right: 4vw; top: 275vh; }
+      .text-4  { left: 4vw; top: 308vh; }
 
-      .final-section { top: 385vh; }
-      .scroll-inner-content { height: 410vh; }
+      .final-section { top: 360vh; }
+      .scroll-inner-content { height: 420vh; }
     }
   </style>
 </head>
 <body>
   <div class="bg" role="presentation"></div>
-  <div class="hojas-overlay" aria-hidden="true"></div>
 
-  <!-- Header Navigation -->
   <header class="nav">
-    <a href="#" class="nav-brand">B.</a>
-    <nav aria-label="Navegación principal">
+    <a href="index.html" aria-label="Bosquejo, inicio" style="opacity:1;padding:0"><img src="assets/bosquejo-b.png" alt="B"></a>
+    <nav aria-label="Principal">
       <ul>
-        <li><a href="#">Tienda</a></li>
-        <li><a href="#" aria-current="page">El festival</a></li>
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Contacto</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="index.html" aria-current="page">El festival</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Main Viewport Area -->
   <main>
     <section class="card">
       
-      <!-- Fixed Header Overlay with Animated SVG Logo -->
+      <!-- Cabecera con logo animado y subtítulo -->
       <div class="card-header" id="cardHeader">
-        <div class="logo-container">
-          <svg class="logo-svg" viewBox="0 0 500 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="logo-path" d="M35 85 C 20 85, 20 30, 45 30 C 70 30, 70 55, 45 55 C 80 55, 80 85, 35 85 Z M100 65 C 85 65, 85 85, 100 85 C 115 85, 115 65, 100 65 Z M140 85 C 130 85, 125 75, 135 65 C 145 55, 155 70, 145 85 Z M180 85 C 170 85, 170 40, 180 40 C 190 40, 180 85, 190 85 Z M215 75 C 205 75, 205 85, 220 85 C 235 85, 225 65, 215 65 Z M255 85 C 245 85, 245 65, 255 65 C 265 65, 265 100, 245 105 Z M285 75 C 275 75, 275 85, 290 85 C 305 85, 295 65, 285 65 Z M325 85 C 310 85, 310 65, 325 65 C 340 65, 340 85, 325 85 Z" stroke="#60281B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <text x="50%" y="72" text-anchor="middle" font-family="'Cinzel', serif" font-size="46" fill="#60281B" letter-spacing="6">BOSQUEJO</text>
-            <text x="50%" y="102" text-anchor="middle" font-family="'Roboto', sans-serif" font-weight="300" font-size="16" fill="#D94726" letter-spacing="10">FESTIVAL</text>
-          </svg>
-        </div>
+        <h1 style="all:unset">
+          <div class="logo-box">
+            <video id="logoVideo" muted playsinline autoplay preload="auto">
+              <source src="assets/bosquejo-logo-escribiendo.mov" type="video/quicktime">
+              <source src="assets/bosquejo-logo-escribiendo.webm" type="video/webm">
+              <img src="assets/bosquejo-logo-estatico.png" alt="Bosquejo Fest">
+            </video>
+          </div>
+        </h1>
         <p class="lema">Festival de la moda en proceso.</p>
       </div>
 
-      <!-- Scrollable Inner Content Area -->
+      <!-- Área de scroll -->
       <div class="card-scroll-area" id="scrollArea">
         <div class="scroll-inner-content">
           
-          <!-- Photo 1 + Manifesto 1 -->
           <div class="gallery-item item-1">
-            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-              <rect width="400" height="500" fill="#899C75"/>
-              <path d="M 50 400 Q 200 100 350 450" stroke="#FFF9E5" stroke-width="8" fill="none" opacity="0.6"/>
-              <circle cx="200" cy="200" r="80" fill="#EBDFCC" opacity="0.7"/>
-              <text x="50%" y="50%" text-anchor="middle" fill="#60281B" font-family="'Cinzel', serif" font-size="22">I. EL TRAZO</text>
-            </svg>
+            <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
           </div>
           <div class="manifesto-text text-1">
             Todo lo que hoy existe, un día fue solo un trazo.
           </div>
 
-          <!-- Photo 2 + Manifesto 2 -->
           <div class="gallery-item item-2">
-            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-              <rect width="400" height="500" fill="#B2CFDE"/>
-              <path d="M 80 100 Q 300 250 100 400" stroke="#60281B" stroke-width="6" fill="none" opacity="0.4"/>
-              <rect x="100" y="150" width="200" height="200" rx="10" fill="#FFF9E5" opacity="0.8"/>
-              <text x="50%" y="50%" text-anchor="middle" fill="#60281B" font-family="'Cinzel', serif" font-size="22">II. LA IDEA</text>
-            </svg>
+            <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
           </div>
           <div class="manifesto-text text-2">
             Miles de ideas brillantes nunca llegan a mostrarse. No porque falten, sino porque nadie las considera suficientes.
           </div>
 
-          <!-- Photo 3 + Manifesto 3 -->
           <div class="gallery-item item-3">
-            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-              <rect width="400" height="500" fill="#D94726" opacity="0.85"/>
-              <circle cx="150" cy="250" r="100" stroke="#FFF9E5" stroke-width="4" fill="none"/>
-              <circle cx="250" cy="250" r="100" stroke="#FFF9E5" stroke-width="4" fill="none"/>
-              <text x="50%" y="50%" text-anchor="middle" fill="#FFF9E5" font-family="'Cinzel', serif" font-size="22">III. EL PROCESO</text>
-            </svg>
+            <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
           </div>
           <div class="manifesto-text text-3">
             Mientras tanto, el mundo sigue celebrando solo lo terminado.
           </div>
 
-          <!-- Photo 4 + Manifesto 4 -->
           <div class="gallery-item item-4">
-            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-              <rect width="400" height="500" fill="#60281B"/>
-              <path d="M 50 50 L 350 450 M 350 50 L 50 450" stroke="#899C75" stroke-width="5" opacity="0.5"/>
-              <text x="50%" y="50%" text-anchor="middle" fill="#EBDFCC" font-family="'Cinzel', serif" font-size="22">IV. BOSQUEJO</text>
-            </svg>
+            <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
           </div>
           <div class="manifesto-text text-4">
             Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
           </div>
 
-          <!-- Bottom Final Section -->
           <div class="final-section" id="finalSection">
             <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
           </div>
@@ -431,32 +308,37 @@
     </section>
   </main>
 
+  <div class="hojas" aria-hidden="true"></div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const scrollArea = document.getElementById('scrollArea');
-      const cardHeader = document.getElementById('cardHeader');
-      const finalSection = document.getElementById('finalSection');
+    const video = document.getElementById('logoVideo');
+    if (video) {
+      video.addEventListener('ended', () => {
+        video.pause();
+        video.currentTime = video.duration;
+      });
+    }
 
-      if (scrollArea && cardHeader && finalSection) {
-        scrollArea.addEventListener('scroll', () => {
-          const scrollTop = scrollArea.scrollTop;
-          
-          // Smoothly fade out header on scroll
-          let opacity = 1 - (scrollTop / 160);
-          if (opacity < 0) opacity = 0;
-          cardHeader.style.opacity = opacity.toString();
-          cardHeader.style.transform = `translateY(-${Math.min(scrollTop * 0.2, 40)}px)`;
+    const scrollArea = document.getElementById('scrollArea');
+    const cardHeader = document.getElementById('cardHeader');
+    const finalSection = document.getElementById('finalSection');
 
-          // Trigger final sentence reveal near bottom
-          const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 180;
-          if (scrollTop >= scrollThreshold) {
-            finalSection.classList.add('visible');
-          } else {
-            finalSection.classList.remove('visible');
-          }
-        });
-      }
-    });
+    if (scrollArea && cardHeader && finalSection) {
+      scrollArea.addEventListener('scroll', () => {
+        const scrollTop = scrollArea.scrollTop;
+        
+        let opacity = 1 - (scrollTop / 120);
+        if (opacity < 0) opacity = 0;
+        cardHeader.style.opacity = opacity;
+
+        const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 150;
+        if (scrollTop >= scrollThreshold) {
+          finalSection.classList.add('visible');
+        } else {
+          finalSection.classList.remove('visible');
+        }
+      });
+    }
   </script>
 </body>
 </html>
