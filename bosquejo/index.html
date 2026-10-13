@@ -138,13 +138,24 @@
       pointer-events: none;
     }
 
-    /* Fotos y textos */
-    .gallery-item {
+    /* Fotos y textos con transición de aparición */
+    .gallery-item, .manifesto-text {
       position: absolute;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      pointer-events: auto;
+    }
+
+    .gallery-item.visible, .manifesto-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      pointer-events: auto;
       width: 340px;
     }
 
@@ -158,7 +169,6 @@
     }
 
     .manifesto-text {
-      position: absolute;
       width: 320px;
       font-family: 'Roboto', system-ui, sans-serif;
       font-style: italic;
@@ -166,8 +176,6 @@
       font-size: 1.15rem;
       line-height: 1.5;
       color: var(--corteza);
-      opacity: 0.9;
-      pointer-events: auto;
     }
 
     /* Posiciones equilibradas de la galería */
@@ -183,12 +191,12 @@
     .item-4 { top: 310vh; right: 8vw; }
     .text-4  { top: 322vh; left: 12vw; }
 
-    /* Sección final con la frase y los datos del evento perfectamente ubicados */
+    /* Sección final con la frase y los datos del evento */
     .final-section {
       position: absolute;
       top: 380vh;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(30px);
       width: 100%;
       max-width: 700px;
       text-align: center;
@@ -200,7 +208,7 @@
 
     .final-section.visible {
       opacity: 1;
-      transform: translate(-50%, -20px);
+      transform: translateX(-50%) translateY(0);
     }
 
     .final-title {
@@ -289,35 +297,35 @@
       <div class="card-scroll-area" id="scrollArea">
         <div class="scroll-inner-content">
           
-          <div class="gallery-item item-1">
+          <div class="gallery-item item-1 fade-el">
             <img src="assets/foto-1.jpg" alt="Proceso creativo 1">
           </div>
-          <div class="manifesto-text text-1">
+          <div class="manifesto-text text-1 fade-el">
             Todo lo que hoy existe, un día fue solo un trazo.
           </div>
 
-          <div class="gallery-item item-2">
+          <div class="gallery-item item-2 fade-el">
             <img src="assets/foto-2.jpg" alt="Proceso creativo 2">
           </div>
-          <div class="manifesto-text text-2">
+          <div class="manifesto-text text-2 fade-el">
             Miles de ideas brillantes nunca llegan a mostrarse. No porque falten, sino porque nadie las considera suficientes.
           </div>
 
-          <div class="gallery-item item-3">
+          <div class="gallery-item item-3 fade-el">
             <img src="assets/foto-3.jpg" alt="Proceso creativo 3">
           </div>
-          <div class="manifesto-text text-3">
+          <div class="manifesto-text text-3 fade-el">
             Mientras tanto, el mundo sigue celebrando solo lo terminado.
           </div>
 
-          <div class="gallery-item item-4">
+          <div class="gallery-item item-4 fade-el">
             <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
           </div>
-          <div class="manifesto-text text-4">
+          <div class="manifesto-text text-4 fade-el">
             Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
           </div>
 
-          <!-- Sección final ajustada y visible -->
+          <!-- Sección final -->
           <div class="final-section" id="finalSection">
             <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
             <div class="event-info">
@@ -348,16 +356,32 @@
     const scrollArea = document.getElementById('scrollArea');
     const cardHeader = document.getElementById('cardHeader');
     const finalSection = document.getElementById('finalSection');
+    const fadeElements = document.querySelectorAll('.fade-el');
 
-    if (scrollArea && cardHeader && finalSection) {
+    if (scrollArea && cardHeader) {
       scrollArea.addEventListener('scroll', () => {
         const scrollTop = scrollArea.scrollTop;
+        const scrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
         
+        // Desvanecer el encabezado principal
         let opacity = 1 - (scrollTop / 120);
         if (opacity < 0) opacity = 0;
         cardHeader.style.opacity = opacity;
 
-        const scrollThreshold = scrollArea.scrollHeight - scrollArea.clientHeight - 100;
+        // Efecto de aparición dinámica para cada elemento según el scroll
+        fadeElements.forEach(el => {
+          const rectTop = el.offsetTop - scrollArea.scrollTop;
+          // Si el elemento entra en la zona visible de la tarjeta, se despliega
+          if (rectTop < scrollArea.clientHeight * 0.75) {
+            el.classList.add('visible');
+          } else {
+            // Opcional: si quieres que se desvanezca al subir/bajar
+            // el.classList.remove('visible');
+          }
+        });
+
+        // Mostrar sección final al llegar al fondo
+        const scrollThreshold = scrollHeight - 100;
         if (scrollTop >= scrollThreshold) {
           finalSection.classList.add('visible');
         } else {
