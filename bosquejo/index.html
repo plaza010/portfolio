@@ -133,7 +133,7 @@
     .scroll-inner-content {
       position: relative;
       width: 100%;
-      height: 480vh;
+      height: 520vh;
       background: #EBDFCC !important;
       pointer-events: none;
     }
@@ -170,7 +170,7 @@
       pointer-events: auto;
     }
 
-    /* Posiciones */
+    /* Posiciones de la galería */
     .item-1 { top: 75vh; left: 8vw; }
     .text-1  { top: 90vh; right: 12vw; }
 
@@ -183,14 +183,14 @@
     .item-4 { top: 375vh; right: 8vw; }
     .text-4  { top: 390vh; left: 12vw; }
 
-    /* Frase final */
+    /* Sección final con la frase y los datos del evento */
     .final-section {
       position: absolute;
-      top: 455vh;
+      top: 460vh;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       text-align: center;
       pointer-events: auto;
       padding: 0 2rem;
@@ -208,6 +208,25 @@
       font-weight: 300;
       font-size: clamp(1.4rem, 2.2vw, 2rem);
       color: var(--corteza);
+      margin-bottom: 2.5rem;
+    }
+
+    .event-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-family: 'Roboto', system-ui, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+      letter-spacing: 0.08em;
+      color: var(--corteza);
+      text-transform: uppercase;
+    }
+
+    .event-info .fest-name {
+      font-weight: 500;
+      margin-bottom: 0.2rem;
     }
 
     @media (max-width: 760px) {
@@ -229,8 +248,8 @@
       .item-4 { right: 4vw; top: 275vh; }
       .text-4  { left: 4vw; top: 308vh; }
 
-      .final-section { top: 360vh; }
-      .scroll-inner-content { height: 420vh; }
+      .final-section { top: 375vh; }
+      .scroll-inner-content { height: 450vh; }
     }
   </style>
 </head>
@@ -298,8 +317,15 @@
             Bosquejo nace para romper esa espera. Aquí, el trazo se queda como es: inacabado, en construcción, y se le da valor.
           </div>
 
+          <!-- Sección final con la frase y los datos del evento -->
           <div class="final-section" id="finalSection">
             <h2 class="final-title">Antes de existir, todo es bosquejo.</h2>
+            <div class="event-info">
+              <div class="fest-name">BOSQUEJO FEST</div>
+              <div>BOSQUE DE MONTSENY, BARCELONA</div>
+              <div>DEL 18 AL 19 DE ABRIL</div>
+              <div>2027</div>
+            </div>
           </div>
 
         </div>
