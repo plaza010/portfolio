@@ -107,11 +107,19 @@
       opacity: 0.95;
     }
 
+    /* Subtítulo con retraso de fundido inicial */
     .lema {
       font-style: italic; font-weight: 300;
       font-size: clamp(1.1rem, 1.5vw, 1.5rem);
       color: var(--corteza);
       text-align: center; padding: 0 1.5rem;
+      opacity: 0;
+      animation: apareceLema 1.2s ease 0.6s forwards;
+    }
+
+    @keyframes apareceLema {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -138,18 +146,24 @@
       pointer-events: none;
     }
 
-    /* Fotos y textos con transición de aparición */
+    /* Fotos y textos con transición de aparición y desaparición */
     .gallery-item, .manifesto-text {
       position: absolute;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: auto;
     }
 
     .gallery-item.visible, .manifesto-text.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Clase para desvanecer elementos cuando se van de pantalla o llega el final */
+    .gallery-item.fade-out, .manifesto-text.fade-out {
+      opacity: 0;
+      transform: translateY(-20px);
     }
 
     .gallery-item {
@@ -279,7 +293,7 @@
   <main>
     <section class="card">
       
-      <!-- Cabecera con logo animado y subtítulo -->
+      <!-- Cabecera con logo animado y subtítulo con fundido con retraso -->
       <div class="card-header" id="cardHeader">
         <h1 style="all:unset">
           <div class="logo-box">
@@ -318,7 +332,7 @@
             Mientras tanto, el mundo sigue celebrando solo lo terminado.
           </div>
 
-          <div class="gallery-item item-4 fade-el">
+          <div class="gallery-item item-4 fade-el last-gallery-item">
             <img src="assets/foto-4.jpg" alt="Proceso creativo 4">
           </div>
           <div class="manifesto-text text-4 fade-el">
@@ -357,35 +371,34 @@
     const cardHeader = document.getElementById('cardHeader');
     const finalSection = document.getElementById('finalSection');
     const fadeElements = document.querySelectorAll('.fade-el');
+    const lastItem = document.querySelector('.last-gallery-item');
 
     if (scrollArea && cardHeader) {
       scrollArea.addEventListener('scroll', () => {
         const scrollTop = scrollArea.scrollTop;
         const scrollHeight = scrollArea.scrollHeight - scrollArea.clientHeight;
         
-        // Desvanecer el encabezado principal
+        // Desvanecer el encabezado principal al empezar a bajar
         let opacity = 1 - (scrollTop / 120);
         if (opacity < 0) opacity = 0;
         cardHeader.style.opacity = opacity;
 
-        // Efecto de aparición dinámica para cada elemento según el scroll
+        // Aparición dinámica de elementos al hacer scroll
         fadeElements.forEach(el => {
           const rectTop = el.offsetTop - scrollArea.scrollTop;
-          // Si el elemento entra en la zona visible de la tarjeta, se despliega
           if (rectTop < scrollArea.clientHeight * 0.75) {
             el.classList.add('visible');
-          } else {
-            // Opcional: si quieres que se desvanezca al subir/bajar
-            // el.classList.remove('visible');
           }
         });
 
-        // Mostrar sección final al llegar al fondo
-        const scrollThreshold = scrollHeight - 100;
+        // Umbral para mostrar la sección final y ocultar la última foto con fundido
+        const scrollThreshold = scrollHeight - 120;
         if (scrollTop >= scrollThreshold) {
           finalSection.classList.add('visible');
+          if (lastItem) lastItem.classList.add('fade-out');
         } else {
           finalSection.classList.remove('visible');
+          if (lastItem) lastItem.classList.remove('fade-out');
         }
       });
     }
