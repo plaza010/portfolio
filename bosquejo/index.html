@@ -247,20 +247,31 @@
       .logo-box video { display: none !important; }
       .logo-box img.logo-estatico { display: block !important; }
 
-      .gallery-item { width: 230px; }
-      .manifesto-text { width: 250px; font-size: 1rem; }
+      .scroll-inner-content {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        padding: 62vh 1rem 3rem;
+      }
+      .gallery-item, .manifesto-text, .final-section { position: static; }
 
-      .item-1 { left: 4vw; top: 62vh; }
-      .text-1  { right: 4vw; top: 90vh; }
-      .item-2 { right: 4vw; top: 125vh; }
-      .text-2  { left: 4vw; top: 153vh; }
-      .item-3 { left: 4vw; top: 188vh; }
-      .text-3  { right: 4vw; top: 216vh; }
-      .item-4 { right: 4vw; top: 251vh; }
-      .text-4  { left: 4vw; top: 279vh; }
+      .gallery-item { width: min(230px, 70%); }
+      .manifesto-text { width: min(260px, 85%); font-size: 1rem; }
 
-      .final-section { top: 315vh; }
-      .scroll-inner-content { height: 360vh; }
+      /* zigzag izquierda / derecha como en escritorio */
+      .item-1, .item-3, .text-2, .text-4 { align-self: flex-start; }
+      .item-2, .item-4, .text-1, .text-3 { align-self: flex-end; }
+
+      .final-section {
+        max-width: none; width: 100%;
+        margin-top: 3rem; padding: 0 1rem;
+        transform: translateY(30px);
+      }
+      .final-section.visible { transform: none; }
+
+      /* la última foto ya no se desvanece al llegar al final */
+      .gallery-item.fade-out { opacity: 1; transform: none; }
     }
   </style>
 </head>
