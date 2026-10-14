@@ -247,7 +247,19 @@
       .manifesto-text { width: min(260px, 85%); font-size: 1rem; margin-top: 3rem; margin-bottom: 3rem; }
       .text-1, .text-3 { margin-right: 0; }
       .text-2, .text-4 { margin-left: 0; }
-      .final-section { margin-top: 5rem; padding: 0 1rem; }
+
+      /* Bloque final: pantalla propia centrada que tapa el scroll de arriba.
+         (el JS lo mueve dentro de .card en mobile) */
+      .scroll-inner-content { padding-bottom: 30vh; }
+      .final-section {
+        position: absolute; inset: 0; z-index: 25;
+        width: auto; max-width: none; margin: 0; padding: 0 1.5rem;
+        background: #EBDFCC;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        transform: none;
+        pointer-events: none; /* deja pasar el scroll para poder volver arriba */
+      }
+      .final-section.visible { transform: none; }
     }
   </style>
 </head>
@@ -347,6 +359,19 @@
         });
       }
     }
+
+    // En mobile el bloque final sale del scroll y se coloca sobre toda la tarjeta
+    const mqMobile = window.matchMedia('(max-width: 760px)');
+    function colocarFinal() {
+      const fs = document.getElementById('finalSection');
+      const card = document.querySelector('.card');
+      const inner = document.querySelector('.scroll-inner-content');
+      if (!fs || !card || !inner) return;
+      if (mqMobile.matches) card.appendChild(fs);
+      else inner.appendChild(fs);
+    }
+    colocarFinal();
+    mqMobile.addEventListener('change', colocarFinal);
 
     const scrollArea = document.getElementById('scrollArea');
     const cardHeader = document.getElementById('cardHeader');
