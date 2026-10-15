@@ -246,6 +246,8 @@
       .logo-box { width: 72vw; }
       .logo-box video { display: none !important; }
       .logo-box img.logo-estatico { display: block !important; }
+      .ios-video .logo-box video { display: block !important; }
+      .ios-video .logo-box img.logo-estatico { display: none !important; }
 
       /* Mobile: todo fluye en vertical para que nada se pise */
       .scroll-inner-content { height: auto; display: block; padding: 62vh 1rem 30vh; }
@@ -360,29 +362,31 @@
   <div class="hojas" aria-hidden="true"></div>
 
   <script>
-    if (window.innerWidth <= 760) {
-      const v = document.getElementById('logoVideo');
-      if (v) v.remove();
-    } else {
-      const video = document.getElementById('logoVideo');
-      if (video) {
-        // Solo iOS y Safari: usar el vídeo HEVC. El resto de navegadores sigue con .mov / .webm
-        const ua = navigator.userAgent;
-        const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        const isSafari = /safari/i.test(ua) && !/chrome|chromium|crios|fxios|edg|opr|android/i.test(ua);
-        if (isIOS || isSafari) {
-          video.removeAttribute('src');
-          video.querySelectorAll('source').forEach(el => el.remove());
-          video.src = 'assets/bosquejo-logo-escribiendomp4.mp4';
-          video.load();
-          const intento = video.play();
-          if (intento && intento.catch) intento.catch(() => {});
-        }
-        video.addEventListener('ended', () => {
-          video.pause();
-          video.currentTime = video.duration;
-        });
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /safari/i.test(ua) && !/chrome|chromium|crios|fxios|edg|opr|android/i.test(ua);
+    const usarHEVC = isIOS || isSafari;
+
+    // En mobile se muestra el logo estático, salvo en iOS, que usa el vídeo HEVC
+    if (isIOS) document.documentElement.classList.add('ios-video');
+    const video = document.getElementById('logoVideo');
+
+    if (window.innerWidth <= 760 && !isIOS) {
+      if (video) video.remove();
+    } else if (video) {
+      // Solo iOS y Safari: vídeo HEVC. El resto de navegadores sigue con .mov / .webm
+      if (usarHEVC) {
+        video.removeAttribute('src');
+        video.querySelectorAll('source').forEach(el => el.remove());
+        video.src = 'assets/bosquejo-logo-escribiendomp4.mp4';
+        video.load();
+        const intento = video.play();
+        if (intento && intento.catch) intento.catch(() => {});
       }
+      video.addEventListener('ended', () => {
+        video.pause();
+        video.currentTime = video.duration;
+      });
     }
 
     // En mobile el bloque final sale del scroll y se coloca sobre toda la tarjeta
