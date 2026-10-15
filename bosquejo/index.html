@@ -93,10 +93,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden; /* recorta el borde del vídeo ampliado */
     }
 
     .logo-box video {
       width: 100%; height: auto; display: block; opacity: 0.95;
+      /* Safari: quita las bandas negras laterales de 1-2px ampliando
+         ligeramente el vídeo; el contenedor recorta lo que sobra */
+      transform: scale(1.012);
+      transform-origin: center;
+      -webkit-transform: scale(1.012);
     }
     .logo-box img.logo-estatico {
       display: none; width: 100%; height: auto; opacity: 0.95;
