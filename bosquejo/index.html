@@ -366,6 +366,18 @@
     } else {
       const video = document.getElementById('logoVideo');
       if (video) {
+        // Solo iOS y Safari: usar el vídeo HEVC. El resto de navegadores sigue con .mov / .webm
+        const ua = navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isSafari = /safari/i.test(ua) && !/chrome|chromium|crios|fxios|edg|opr|android/i.test(ua);
+        if (isIOS || isSafari) {
+          video.removeAttribute('src');
+          video.querySelectorAll('source').forEach(el => el.remove());
+          video.src = 'assets/bosquejo-logo-escribiendomp4.mp4';
+          video.load();
+          const intento = video.play();
+          if (intento && intento.catch) intento.catch(() => {});
+        }
         video.addEventListener('ended', () => {
           video.pause();
           video.currentTime = video.duration;
