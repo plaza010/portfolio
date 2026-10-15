@@ -246,8 +246,6 @@
       .logo-box { width: 72vw; }
       .logo-box video { display: none !important; }
       .logo-box img.logo-estatico { display: block !important; }
-      .ios-video .logo-box video { display: block !important; }
-      .ios-video .logo-box img.logo-estatico { display: none !important; }
 
       /* Mobile: todo fluye en vertical para que nada se pise */
       .scroll-inner-content { height: auto; display: block; padding: 62vh 1rem 30vh; }
@@ -366,13 +364,15 @@
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isSafari = /safari/i.test(ua) && !/chrome|chromium|crios|fxios|edg|opr|android/i.test(ua);
     const usarHEVC = isIOS || isSafari;
+    const isIPhone = /iPhone|iPod/.test(ua);
 
-    // En mobile se muestra el logo estático, salvo en iOS, que usa el vídeo HEVC
-    if (isIOS) document.documentElement.classList.add('ios-video');
+    // Móvil (y iPhone en cualquier orientación): logo estático, sin vídeo
     const video = document.getElementById('logoVideo');
 
-    if (window.innerWidth <= 760 && !isIOS) {
+    if (window.innerWidth <= 760 || isIPhone) {
       if (video) video.remove();
+      const estatico = document.querySelector('.logo-estatico');
+      if (estatico) estatico.style.display = 'block';
     } else if (video) {
       // Solo iOS y Safari: vídeo HEVC. El resto de navegadores sigue con .mov / .webm
       if (usarHEVC) {
