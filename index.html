@@ -15,9 +15,12 @@ body.lock{overflow:hidden}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad);background:rgba(255,255,255,.94);backdrop-filter:blur(8px)}
+header{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px var(--pad);background:rgba(255,255,255,.94);backdrop-filter:blur(8px)}
 .mark{font-weight:400;letter-spacing:.03em;text-decoration:none}
-nav{display:flex;gap:28px;font-size:15px}
+nav{display:flex;gap:28px;font-size:15px;justify-self:end}
+.logo{display:block;line-height:0}
+.logo img{height:46px;width:auto;display:block}
+.mark{justify-self:start}
 nav a{text-decoration:none;color:var(--mute)}
 nav a:hover{color:var(--ink)}
 .intro{padding:clamp(40px,8vw,110px) var(--pad) clamp(28px,4vw,56px)}
@@ -61,13 +64,14 @@ dialog::backdrop{background:#fff}
 .vid iframe{width:100%;height:100%;border:0;display:block}
 .cap{color:var(--mute);font-size:.92rem;margin:-6px 0 8px}
 @media(max-width:1000px){#projects{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){#projects{grid-template-columns:1fr}.about,.pj{grid-template-columns:1fr}.pj-text{position:static}nav{gap:18px}}
+@media(max-width:700px){header{grid-template-columns:auto 1fr}.mark{display:none}.logo img{height:38px}#projects{grid-template-columns:1fr}.about,.pj{grid-template-columns:1fr}.pj-text{position:static}nav{gap:18px}}
 @media(prefers-reduced-motion:reduce){dialog[open]{animation:none}.card img{transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header>
   <a class="mark" href="#top">David Pérez Plaza</a>
+  <a class="logo" href="#top" aria-label="David Pérez Plaza"><img src="assets/images/5dd112251-fefb-4179-bf72-50c275229681-rwc-0x0x312x177x4096.gif" alt=""></a>
   <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
 </header>
 
@@ -104,6 +108,9 @@ dialog::backdrop{background:#fff}
 const I='assets/images/';
 /* media: 'img.png' | 'v:VIMEOID[@ratio][|caption]' | 'y:YOUTUBEID[@ratio][|caption]' */
 const P=[
+{id:'zara-home-kids',t:'Zara Home Kids: Strike',s:'Concept animation',c:'bowlingzh_portada.png',
+ d:'Conceptual animation for Zara Home Kids toys. A short piece imagining how a bowling toy set could come to life as playful content for a kids\' home campaign.',
+ m:['f:BowlingZH_v02.mp4#bowlingzh_portada.png']},
 {id:'pull-and-bear',t:'Pull&Bear',s:'Avestudio, Inditex',c:'renderespaciomisho-ext01-844x475.png',
  d:'Motion for the Pride 2025 campaign, plus 3D design and rendering for the Misho and Olivia Rodrigo pop-ups.',
  m:['v:1202741700@9/16','renderespaciomisho-ext01-844x475.png','0007-844x475.png','0005-844x475.png','008-1-844x475.png','1-844x475.png','2-844x475.png','corneror-03.png0000-844x475.png','corneror-04.png0001-844x475.png']},
@@ -136,6 +143,8 @@ const P=[
 const $=s=>document.querySelector(s),dlg=$('#dlg'),pj=$('#pj');
 const vid=(src,ar,cap)=>`<div class="vid${ar&&ar.split('/')[0]<ar.split('/')[1]?' tall':''}" style="--ar:${ar||'16/9'}"><iframe src="${src}" title="${cap||'Video'}" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div>`+(cap?`<p class="cap">${cap}</p>`:'');
 function media(m){
+  if(m.startsWith('f:')){const[a,cap]=m.slice(2).split('|'),[f,po]=a.split('#');
+    return`<video src="${I+f}"${po?` poster="${I+po}"`:''} controls playsinline preload="metadata" style="width:100%;display:block;background:#000"></video>`+(cap?`<p class="cap">${cap}</p>`:'');}
   const x=m.match(/^([vy]):([\w-]+)(?:@([\d/]+))?(?:\|(.*))?$/);
   if(!x)return`<img src="${I+m}" alt="" loading="lazy">`;
   const src=x[1]=='v'?`https://player.vimeo.com/video/${x[2]}?dnt=1`:`https://www.youtube-nocookie.com/embed/${x[2]}`;
