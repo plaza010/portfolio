@@ -30,6 +30,7 @@ nav a:hover{color:var(--ink)}
 .reel img{width:100%;height:100%;object-fit:cover}
 .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center}
 .play::after{content:"";border-left:16px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
+.reel.on{aspect-ratio:var(--ar,16/9);max-height:none;background:none}
 .reel iframe{width:100%;height:100%;border:0;display:block;background:#000}
 .reel-label{position:absolute;left:20px;bottom:16px;color:#fff;font-weight:400;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 #projects{padding:clamp(48px,7vw,96px) var(--pad);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(36px,4vw,64px) clamp(14px,1.6vw,24px)}
@@ -48,25 +49,25 @@ section.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap
 #contact a+a{margin-top:12px}
 #contact a:hover{border-color:var(--ink)}
 footer{padding:28px var(--pad);color:var(--mute);font-size:.85rem}
-dialog{position:fixed;inset:0;margin:auto;width:min(1200px,94vw);height:auto;max-width:none;max-height:92vh;border:0;padding:0;background:#fff;color:var(--ink);overflow:auto}
+dialog{position:fixed;inset:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;border:0;padding:0;background:#fff;color:var(--ink);overflow:auto}
 dialog[open]{animation:in .28s ease-out}
-dialog::backdrop{background:rgba(20,20,20,.5)}
+dialog::backdrop{background:#fff}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.x{position:sticky;top:12px;display:block;margin:12px 14px -52px auto;z-index:2;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:99px;font-size:.92rem}
+.x{position:fixed;top:16px;right:var(--pad);z-index:2;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:99px;font-size:.92rem}
 .x:hover{border-color:var(--ink)}
-.pj{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(24px,4vw,56px);padding:52px clamp(20px,3.5vw,48px) 56px}
-.pj-text{position:sticky;top:56px;align-self:start}
+.pj{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(24px,4vw,56px);max-width:1240px;margin:0 auto;padding:76px clamp(20px,3.5vw,48px) 64px}
+.pj-text{position:sticky;top:76px;align-self:start}
 .pj h3{font-weight:300;font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1.1;letter-spacing:-.015em}
 .pj .sub{color:var(--mute);margin:10px 0 22px}
 .pj-media{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;min-width:0}
 .pj-media img{width:100%;max-height:85vh;object-fit:contain;display:block;background:#f6f6f6}
-.pj-media video{max-height:85vh}
-.vid{aspect-ratio:var(--ar,16/9);background:#000;width:100%}
+.pj-media video{width:auto;max-width:100%;max-height:85vh;margin:0 auto;display:block}
+.vid{aspect-ratio:var(--ar,16/9);width:100%}
 .vid.tall{max-width:380px}
 .vid iframe{width:100%;height:100%;border:0;display:block}
 .cap{color:var(--mute);font-size:.92rem;margin:-6px 0 8px}
 @media(max-width:1000px){#projects{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){dialog{width:100%;height:100%;max-height:100%}header{grid-template-columns:auto 1fr}.mark{display:none}.logo img{height:38px}#projects{grid-template-columns:1fr}.about,.pj{grid-template-columns:1fr}.pj-text{position:static}nav{gap:18px}}
+@media(max-width:700px){header{grid-template-columns:auto 1fr}.mark{display:none}.logo img{height:38px}#projects{grid-template-columns:1fr}.about,.pj{grid-template-columns:1fr}.pj-text{position:static}nav{gap:18px}}
 @media(prefers-reduced-motion:reduce){dialog[open]{animation:none}.card img{transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -143,10 +144,12 @@ const P=[
  d:'Animated 3D logo for Basquet Coruña.',m:['v:1201008841']}
 ];
 const $=s=>document.querySelector(s),dlg=$('#dlg'),pj=$('#pj');
-const vid=(src,ar,cap)=>`<div class="vid${ar&&ar.split('/')[0]<ar.split('/')[1]?' tall':''}" style="--ar:${ar||'16/9'}"><iframe src="${src}" title="${cap||'Video'}" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div>`+(cap?`<p class="cap">${cap}</p>`:'');
+const dm=u=>{const m=u.match(/vimeo\.com\/video\/(\d+)/);return m?` data-vm="${m[1]}"`:''};
+const fitAll=r=>r.querySelectorAll('[data-vm]').forEach(el=>fetch('https://vimeo.com/api/oembed.json?url='+encodeURIComponent('https://vimeo.com/'+el.dataset.vm)).then(x=>x.json()).then(o=>{if(o.width&&o.height){el.style.setProperty('--ar',o.width+'/'+o.height);el.classList.toggle('tall',o.height>o.width)}}).catch(()=>{}));
+const vid=(src,ar,cap)=>`<div${dm(src)} class="vid${ar&&ar.split('/')[0]<ar.split('/')[1]?' tall':''}" style="--ar:${ar||'16/9'}"><iframe src="${src}" title="${cap||'Video'}" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div>`+(cap?`<p class="cap">${cap}</p>`:'');
 function media(m){
   if(m.startsWith('f:')){const[a,cap]=m.slice(2).split('|'),[f,po]=a.split('#');
-    return`<video src="${I+f}"${po?` poster="${I+po}"`:''} controls playsinline preload="metadata" style="width:100%;display:block;background:#000"></video>`+(cap?`<p class="cap">${cap}</p>`:'');}
+    return`<video src="${I+f}"${po?` poster="${I+po}"`:''} controls playsinline preload="metadata"></video>`+(cap?`<p class="cap">${cap}</p>`:'');}
   const x=m.match(/^([vy]):([\w-]+)(?:@([\d/]+))?(?:\|(.*))?$/);
   if(!x)return`<img src="${I+m}" alt="" loading="lazy">`;
   const src=x[1]=='v'?`https://player.vimeo.com/video/${x[2]}?dnt=1`:`https://www.youtube-nocookie.com/embed/${x[2]}`;
@@ -156,13 +159,13 @@ $('#projects').innerHTML=P.map(p=>`<button class="card" data-id="${p.id}"><div c
 function open(id,push){
   const p=P.find(q=>q.id==id);if(!p)return;
   pj.innerHTML=`<div class="pj"><div class="pj-text"><h3>${p.t}</h3><p class="sub">${p.s}</p><p>${p.d}</p></div><div class="pj-media">${p.m.map(media).join('')}</div></div>`;
-  if(!dlg.open)dlg.showModal();dlg.scrollTop=0;document.body.classList.add('lock');
+  if(!dlg.open)dlg.showModal();dlg.scrollTop=0;document.body.classList.add('lock');fitAll(pj);
   if(push)history.replaceState(null,'','#'+id);
 }
 function shut(){pj.innerHTML='';document.body.classList.remove('lock');history.replaceState(null,'',location.pathname)}
 $('#projects').addEventListener('click',e=>{const b=e.target.closest('.card');if(b)open(b.dataset.id,1)});
-$('#reel').onclick=e=>{const r=e.currentTarget,d=document.createElement('div');d.className='reel';
-  d.innerHTML='<iframe src="https://player.vimeo.com/video/843979819?dnt=1&autoplay=1" title="Showreel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';r.replaceWith(d)};
+$('#reel').onclick=e=>{const r=e.currentTarget,d=document.createElement('div');d.className='reel on';d.dataset.vm='843979819';
+  d.innerHTML='<iframe src="https://player.vimeo.com/video/843979819?dnt=1&autoplay=1" title="Showreel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';r.replaceWith(d);fitAll(d.parentNode)};
 $('#close').onclick=()=>dlg.close();
 dlg.addEventListener('close',shut);
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
