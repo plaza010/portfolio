@@ -152,7 +152,7 @@ function media(m){
     return`<video src="${I+f}"${po?` poster="${I+po}"`:''} controls playsinline preload="metadata"></video>`+(cap?`<p class="cap">${cap}</p>`:'');}
   const x=m.match(/^([vy]):([\w-]+)(?:@([\d/]+))?(?:\|(.*))?$/);
   if(!x)return`<img src="${I+m}" alt="" loading="lazy">`;
-  const src=x[1]=='v'?`https://player.vimeo.com/video/${x[2]}?dnt=1`:`https://www.youtube-nocookie.com/embed/${x[2]}`;
+  const src=x[1]=='v'?`https://player.vimeo.com/video/${x[2]}?dnt=1&title=0&byline=0&portrait=0`:`https://www.youtube-nocookie.com/embed/${x[2]}`;
   return vid(src,x[3],x[4]);
 }
 $('#projects').innerHTML=P.map(p=>`<button class="card" data-id="${p.id}"><div class="ph"><img src="${I+p.c}" alt="" loading="lazy" style="object-position:${p.pos||'center'}"></div><h2>${p.t}</h2><span>${p.s}</span></button>`).join('');
@@ -168,7 +168,7 @@ $('#projects').addEventListener('click',e=>{const b=e.target.closest('.card');if
 const reelBtn=$('#reel');
 const stopReel=()=>{const d=document.querySelector('.reel.on');if(d)d.replaceWith(reelBtn)};
 reelBtn.onclick=e=>{const r=e.currentTarget,d=document.createElement('div');d.className='reel on';d.dataset.vm='843979819';
-  d.innerHTML='<iframe src="https://player.vimeo.com/video/843979819?dnt=1&autoplay=1" title="Showreel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';r.replaceWith(d);fitAll(d.parentNode)};
+  d.innerHTML='<iframe src="https://player.vimeo.com/video/843979819?dnt=1&title=0&byline=0&portrait=0&autoplay=1" title="Showreel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';r.replaceWith(d);fitAll(d.parentNode)};
 $('#close').onclick=()=>dlg.close();
 dlg.addEventListener('close',shut);
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
