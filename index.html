@@ -63,7 +63,7 @@ dialog::backdrop{background:#fff}
 .pj-media img{width:100%;max-height:85vh;object-fit:contain;display:block;background:#f6f6f6}
 .pj-media video{width:auto;max-width:100%;max-height:85vh;margin:0 auto;display:block}
 .vid{aspect-ratio:var(--ar,16/9);width:100%}
-.vid.tall{max-width:380px}
+.vid.tall{max-width:380px;margin:0 auto}
 .vid iframe{width:100%;height:100%;border:0;display:block}
 .cap{color:var(--mute);font-size:.92rem;margin:-6px 0 8px}
 @media(max-width:1000px){#projects{grid-template-columns:repeat(2,1fr)}}
@@ -157,6 +157,7 @@ function media(m){
 }
 $('#projects').innerHTML=P.map(p=>`<button class="card" data-id="${p.id}"><div class="ph"><img src="${I+p.c}" alt="" loading="lazy" style="object-position:${p.pos||'center'}"></div><h2>${p.t}</h2><span>${p.s}</span></button>`).join('');
 function open(id,push){
+  stopReel();
   const p=P.find(q=>q.id==id);if(!p)return;
   pj.innerHTML=`<div class="pj"><div class="pj-text"><h3>${p.t}</h3><p class="sub">${p.s}</p><p>${p.d}</p></div><div class="pj-media">${p.m.map(media).join('')}</div></div>`;
   if(!dlg.open)dlg.showModal();dlg.scrollTop=0;document.body.classList.add('lock');fitAll(pj);
@@ -164,7 +165,9 @@ function open(id,push){
 }
 function shut(){pj.innerHTML='';document.body.classList.remove('lock');history.replaceState(null,'',location.pathname)}
 $('#projects').addEventListener('click',e=>{const b=e.target.closest('.card');if(b)open(b.dataset.id,1)});
-$('#reel').onclick=e=>{const r=e.currentTarget,d=document.createElement('div');d.className='reel on';d.dataset.vm='843979819';
+const reelBtn=$('#reel');
+const stopReel=()=>{const d=document.querySelector('.reel.on');if(d)d.replaceWith(reelBtn)};
+reelBtn.onclick=e=>{const r=e.currentTarget,d=document.createElement('div');d.className='reel on';d.dataset.vm='843979819';
   d.innerHTML='<iframe src="https://player.vimeo.com/video/843979819?dnt=1&autoplay=1" title="Showreel" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';r.replaceWith(d);fitAll(d.parentNode)};
 $('#close').onclick=()=>dlg.close();
 dlg.addEventListener('close',shut);
