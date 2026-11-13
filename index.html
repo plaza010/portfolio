@@ -53,7 +53,7 @@ dialog{position:fixed;inset:0;margin:0;width:100%;height:100%;max-width:none;max
 dialog[open]{animation:in .28s ease-out}
 dialog::backdrop{background:#fff}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.x{position:fixed;top:16px;right:var(--pad);z-index:2;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:99px;font-size:.92rem}
+.x{position:fixed;top:16px;left:var(--pad);z-index:2;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:99px;font-size:.92rem}
 .x:hover{border-color:var(--ink)}
 .pj{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(24px,4vw,56px);max-width:1240px;margin:0 auto;padding:76px clamp(20px,3.5vw,48px) 64px}
 .pj-text{position:sticky;top:76px;align-self:start}
@@ -105,7 +105,7 @@ dialog::backdrop{background:#fff}
 </section>
 <footer>© David Pérez Plaza</footer>
 
-<dialog id="dlg" aria-label="Project"><button class="x" id="close">Close</button><div id="pj"></div></dialog>
+<dialog id="dlg" aria-label="Project"><button class="x" id="close" aria-label="Back to projects">← Projects</button><div id="pj"></div></dialog>
 
 <script>
 const I='assets/images/';
@@ -161,9 +161,13 @@ function open(id,push){
   const p=P.find(q=>q.id==id);if(!p)return;
   pj.innerHTML=`<div class="pj"><div class="pj-text"><h3>${p.t}</h3><p class="sub">${p.s}</p><p>${p.d}</p></div><div class="pj-media">${p.m.map(media).join('')}</div></div>`;
   if(!dlg.open)dlg.showModal();dlg.scrollTop=0;document.body.classList.add('lock');fitAll(pj);
-  if(push)history.replaceState(null,'','#'+id);
+  if(push)history.pushState({p:id},'','#'+id);
 }
-function shut(){pj.innerHTML='';document.body.classList.remove('lock');history.replaceState(null,'',location.pathname)}
+function shut(){pj.innerHTML='';document.body.classList.remove('lock');
+  if(history.state&&history.state.p)history.back();
+  else if(location.hash)history.replaceState(null,'',location.pathname+location.search)}
+addEventListener('popstate',()=>{const id=location.hash.slice(1);
+  if(id&&P.some(q=>q.id==id))open(id,0);else if(dlg.open)dlg.close()});
 $('#projects').addEventListener('click',e=>{const b=e.target.closest('.card');if(b)open(b.dataset.id,1)});
 const reelBtn=$('#reel');
 const stopReel=()=>{const d=document.querySelector('.reel.on');if(d)d.replaceWith(reelBtn)};
